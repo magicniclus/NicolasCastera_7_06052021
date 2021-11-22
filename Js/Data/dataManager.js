@@ -3,7 +3,7 @@
 import { recipes } from "./data.js";
 
 export let data = recipes;
-let filterData; //Retourne les données potentiellement modifiable 
+export let filterData = new Set(); //Retourne les données potentiellement modifiable 
 
 export let activeTag = {
     appliance   : [],
@@ -13,7 +13,6 @@ export let activeTag = {
 }
 
 export function allData() {
-    filterData = new Set ();
     data.forEach(recipes => {
         filterData.add(recipes);
     })
@@ -48,3 +47,39 @@ export function getUstensil() {
     return ustensils;
 }
 
+export function addNewValueInIngredientBtn(value, element) {
+    if (element === 'Ingredients'){   
+        let filterIngredient = new Set ();
+        filterData.forEach(recipe => {
+            recipe.ingredients.forEach(element => {
+                if(element.ingredient.toLowerCase() == value){
+                    filterIngredient.add(recipe);
+                }
+            });
+        });
+        filterData = filterIngredient;
+    }
+
+    if (element ==='Appareil'){
+        let filterAppliance = new Set ();
+        filterData.forEach(recipe => {
+            if(recipe.appliance.toLowerCase() == value){
+                filterAppliance.add(recipe);
+            }
+        })
+        filterData = filterAppliance;
+    }
+
+    if (element === 'Ustensils'){
+        let filterUstensil = new Set();
+        filterData.forEach(recipe => {
+            recipe.ustensils.forEach(ust => {
+                if(ust.toLowerCase() == value){
+                    filterUstensil.add(recipe)
+                }
+            });
+        })
+        filterData = filterUstensil;
+    }
+    
+}

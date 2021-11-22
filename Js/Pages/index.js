@@ -1,5 +1,5 @@
 // Gestionnaire d'affichage
-import { allData, data, activeTag } from "../Data/dataManager.js";
+import { allData, data, activeTag, addNewValueInIngredientBtn } from "../Data/dataManager.js";
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 
@@ -38,4 +38,8 @@ function addBtnFilter () {
 
 function updateBtnFilter (type, filterToRemove) {
     console.log(filterToRemove);
+    console.log();
+    addNewValueInIngredientBtn(filterToRemove, type);
+    updateMain();
+    addBtnFilter();
 }
