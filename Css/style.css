@@ -1,0 +1,196 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body main .vignette__container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  border-radius: 5px;
+}
+body main .vignette__container .vignettes {
+  height: 364px;
+  width: 380px;
+  margin-bottom: 4em;
+  border-radius: 5px;
+}
+body main .vignette__container .vignettes .vignette__top {
+  background-color: #c7bebe;
+  height: 45%;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+body main .vignette__container .vignettes .vignette__bottom {
+  height: 55%;
+  width: 100%;
+  background-color: #e7e7e7;
+  border-radius: 0 0 5px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top {
+  height: 30%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__title {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  max-width: 14em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__clock {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 18px;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__minute {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom {
+  width: 90%;
+  height: 70%;
+  display: flex;
+  text-overflow: ellipsis;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient {
+  min-width: 50%;
+  height: 90%;
+  overflow: hidden;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container {
+  text-overflow: ellipsis;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 400;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container .ingredient {
+  font-weight: 700;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__description {
+  min-width: 50%;
+  height: 76%;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  -webkit-line-clamp: 7;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body main .vignettes:hover {
+  -webkit-box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.48);
+  box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+}
+body main .filterContainer {
+  margin-top: 1em;
+  width: 90%;
+  display: flex;
+}
+body main .filterContainer .filtreButton {
+  width: 170px;
+  min-width: 170px;
+  min-height: 69px;
+  height: 69px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+}
+body main .filterContainer .filtreButton .filtreBoutton__filterTop {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 95%;
+}
+body main .filterContainer .filtreButton .filtreBoutton__filterTop input {
+  width: 60%;
+  background-color: #3282F7;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+}
+body main .filterContainer .filtreButton .filtreBoutton__filterTop .filtreButton__Arrow i {
+  color: white;
+  font-size: 18px;
+}
+body main .filterContainer .click {
+  width: 667px;
+  height: 100%;
+  max-height: 397px;
+}
+body main .filterContainer .click .filtreBoutton__filterTop {
+  justify-content: space-between;
+  margin-top: 20px;
+}
+body main .filterContainer .click .filtreBoutton__filterTop input::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+body main .filterContainer .click .tagContainer {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 80%;
+  width: 95%;
+  display: grid;
+  grid-template-columns: repeat(3, 25%);
+  text-overflow: ellipsis;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-bottom: 1em;
+}
+body main .filterContainer .click .tagContainer span {
+  color: white;
+  font-size: 18px;
+  font-style: normal;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 1.5em;
+}
+body main .filterContainer .Ingredients {
+  background-color: #3282F7;
+  margin-right: 2em;
+}
+body main .filterContainer .Ingredients .filtreBoutton__filterTop input {
+  background-color: #3282F7;
+}
+body main .filterContainer .Appareil {
+  background-color: #68D9A4;
+  margin-right: 2em;
+}
+body main .filterContainer .Appareil .filtreBoutton__filterTop input {
+  background-color: #68D9A4;
+}
+body main .filterContainer .Ustensils {
+  background-color: #ED6454;
+}
+body main .filterContainer .Ustensils .filtreBoutton__filterTop input {
+  background-color: #ED6454;
+}
+
+/*# sourceMappingURL=style.css.map */
