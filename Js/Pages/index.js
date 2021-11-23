@@ -1,9 +1,7 @@
 // Gestionnaire d'affichage
-import { allData, data, activeTag, addNewValueInIngredientBtn } from "../Data/dataManager.js";
+import { allData, data, activeTag, addNewValueInIngredientBtn, filterData } from "../Data/dataManager.js";
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
-
-let dataFilter = allData();
 
 let vignetteContainer;
 let filterContainer;
@@ -22,7 +20,7 @@ export async function init (domTarget){
 
 function updateMain (){
     vignetteContainer.innerHTML = '';
-    dataFilter.forEach(recipes => {
+    filterData.forEach(recipes => {
         new Vignette(vignetteContainer, recipes)
     })
 }
@@ -36,10 +34,8 @@ function addBtnFilter () {
     new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ustensils',  'Rechercher un ustensil')
 }
 
-function updateBtnFilter (type, filterToRemove) {
-    console.log(filterToRemove);
-    console.log();
-    addNewValueInIngredientBtn(filterToRemove, type);
+function updateBtnFilter (type, filterToAdd) {
+    addNewValueInIngredientBtn(filterToAdd, type);
     updateMain();
     addBtnFilter();
 }

@@ -1,9 +1,9 @@
 // Gestion des données
 
 import { recipes } from "./data.js";
-
-export let data = recipes;
+let getAllData;
 export let filterData = new Set(); //Retourne les données potentiellement modifiable 
+export let data = allData();
 
 export let activeTag = {
     appliance   : [],
@@ -13,7 +13,7 @@ export let activeTag = {
 }
 
 export function allData() {
-    data.forEach(recipes => {
+    recipes.forEach(recipes => {
         filterData.add(recipes);
     })
     return filterData;
@@ -58,6 +58,7 @@ export function addNewValueInIngredientBtn(value, element) {
             });
         });
         filterData = filterIngredient;
+        data = filterData;
     }
 
     if (element ==='Appareil'){
