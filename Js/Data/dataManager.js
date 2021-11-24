@@ -58,7 +58,6 @@ export function addNewValueInIngredientBtn(value, element) {
             });
         });
         filterData = filterIngredient;
-        data = filterData;
     }
 
     if (element ==='Appareil'){
