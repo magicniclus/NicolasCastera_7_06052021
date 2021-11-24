@@ -1,7 +1,7 @@
 // Sass index
-
-@import "Mixins/vignette.scss";
+@import "Mixins/addTag.scss";
 @import "Mixins/filtreBtn.scss";
+@import "Mixins/vignette.scss";
 
 body {
     margin: 0;
@@ -14,7 +14,8 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        @include vignette;
+        @include addTag;
         @include filtreButton;
+        @include vignette;
     }
 }

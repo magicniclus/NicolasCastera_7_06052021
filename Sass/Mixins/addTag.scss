@@ -1,0 +1,35 @@
+@mixin addTag {
+    .tagBar {
+        width: 90%;
+        display: flex;
+        div {
+            margin-right: 1em;
+            padding: 0.5em 1em 0.5em 1em;
+            border-radius: 5px;
+
+            span {
+                color: white;
+            }
+
+            i {
+                margin-left: 10px;
+                color: white;
+            }
+        }
+
+        .ing {
+            background-color: #3282F7;
+            ;
+        }
+
+        .app {
+            background: #68D9A4;
+        }
+
+        .ust {
+            background: #ED6454;
+
+        }
+    }
+
+}

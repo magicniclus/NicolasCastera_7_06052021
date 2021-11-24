@@ -13,13 +13,10 @@ export class AddTag {
      * @param   {FileList}  [callback]   [callback description]
      *
      */
-    constructor (domTarget, tag, callback){
+    constructor (domTarget, tags, callback){
         this.DOM = domTarget;
         this.callback = callback;
-        this.tag = tag;
-        for (const [key, value] of Object.entries(this.tag)) {
-            this[key] = value;
-        }
+        this.tag = tags;
         this.render ();
     }
 
@@ -28,19 +25,20 @@ export class AddTag {
     }
 
     addTag () {
-        Object.values(this.ingredients).forEach(element =>{
+        this.tag.ingredients.forEach(element =>{
             console.log(element);
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', 'tagContainer');
-            this.tagContainer.setAttribute('class', element);
+            this.tagContainer.setAttribute('class', element.type);
             const tags = document.createElement('span');
-            tags.innerHTML = element;
+            tags.innerHTML = element.name;
             this.tagContainer.appendChild(tags);
             this.DOM.appendChild(this.tagContainer);
             this.addArrow();
         })
 
-        Object.values(this.appliance).forEach(element =>{
+        this.tag.appliance.forEach(element =>{
+            console.log(element);
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', element.type);
             const tags = document.createElement('span');
@@ -50,7 +48,7 @@ export class AddTag {
             this.addArrow();
         })
 
-        Object.values(this.ustensils).forEach(element =>{
+        this.tag.ustensils.forEach(element =>{
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', 'tagContainer');
             this.tagContainer.setAttribute('class', element.type);

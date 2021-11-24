@@ -10,98 +10,30 @@ body main {
   justify-content: center;
   align-items: center;
 }
-body main .vignette__container {
+body main .tagBar {
   width: 90%;
-  display: grid;
-  grid-template-columns: repeat(3, 30%);
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-top: 2em;
+  display: flex;
+}
+body main .tagBar div {
+  margin-right: 1em;
+  padding: 0.5em 1em 0.5em 1em;
   border-radius: 5px;
 }
-body main .vignette__container .vignettes {
-  height: 364px;
-  width: 380px;
-  margin-bottom: 4em;
-  border-radius: 5px;
+body main .tagBar div span {
+  color: white;
 }
-body main .vignette__container .vignettes .vignette__top {
-  background-color: #c7bebe;
-  height: 45%;
-  width: 100%;
-  border-radius: 5px 5px 0 0;
+body main .tagBar div i {
+  margin-left: 10px;
+  color: white;
 }
-body main .vignette__container .vignettes .vignette__bottom {
-  height: 55%;
-  width: 100%;
-  background-color: #e7e7e7;
-  border-radius: 0 0 5px 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+body main .tagBar .ing {
+  background-color: #3282F7;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top {
-  height: 30%;
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+body main .tagBar .app {
+  background: #68D9A4;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__title {
-  font-weight: 400;
-  font-style: normal;
-  font-size: 18px;
-  max-width: 14em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__clock {
-  font-weight: 500;
-  font-style: normal;
-  font-size: 18px;
-}
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__minute {
-  font-weight: 700;
-  font-style: normal;
-  font-size: 18px;
-}
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom {
-  width: 90%;
-  height: 70%;
-  display: flex;
-  text-overflow: ellipsis;
-}
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient {
-  min-width: 50%;
-  height: 90%;
-  overflow: hidden;
-}
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container {
-  text-overflow: ellipsis;
-  font-style: normal;
-  font-size: 12px;
-  font-weight: 400;
-}
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container .ingredient {
-  font-weight: 700;
-}
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__description {
-  min-width: 50%;
-  height: 80%;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 12px;
-  -webkit-line-clamp: 7;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-body main .vignettes:hover {
-  -webkit-box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.48);
-  box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.48);
-  cursor: pointer;
+body main .tagBar .ust {
+  background: #ED6454;
 }
 body main .filterContainer {
   margin-top: 1em;
@@ -192,6 +124,99 @@ body main .filterContainer .Ustensils {
 }
 body main .filterContainer .Ustensils .filtreBoutton__filterTop input {
   background-color: #ED6454;
+}
+body main .vignette__container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  border-radius: 5px;
+}
+body main .vignette__container .vignettes {
+  height: 364px;
+  width: 380px;
+  margin-bottom: 4em;
+  border-radius: 5px;
+}
+body main .vignette__container .vignettes .vignette__top {
+  background-color: #c7bebe;
+  height: 45%;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+body main .vignette__container .vignettes .vignette__bottom {
+  height: 55%;
+  width: 100%;
+  background-color: #e7e7e7;
+  border-radius: 0 0 5px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top {
+  height: 30%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__title {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  max-width: 14em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__clock {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 18px;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__minute {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom {
+  width: 90%;
+  height: 70%;
+  display: flex;
+  text-overflow: ellipsis;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient {
+  min-width: 50%;
+  height: 90%;
+  overflow: hidden;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container {
+  text-overflow: ellipsis;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 400;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container .ingredient {
+  font-weight: 700;
+}
+body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__description {
+  min-width: 50%;
+  height: 76%;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  -webkit-line-clamp: 7;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body main .vignettes:hover {
+  -webkit-box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.48);
+  box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.48);
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

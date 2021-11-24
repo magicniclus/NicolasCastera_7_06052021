@@ -58,6 +58,12 @@ export function addNewValueInIngredientBtn(value, element) {
             });
         });
         filterData = filterIngredient;
+        if (!activeTag.ingredients.includes(value)){
+            activeTag.ingredients.push({
+                type: 'ing',
+                name: value,
+            })
+        };
     }
 
     if (element ==='Appareil'){
@@ -68,6 +74,12 @@ export function addNewValueInIngredientBtn(value, element) {
             }
         })
         filterData = filterAppliance;
+        if (!activeTag.appliance.includes(value)){
+            activeTag.appliance.push({
+                type: 'app',
+                name: value.toLowerCase(),
+            })
+        };
     }
 
     if (element === 'Ustensils'){
@@ -80,6 +92,12 @@ export function addNewValueInIngredientBtn(value, element) {
             });
         })
         filterData = filterUstensil;
+        if (!activeTag.ustensils.includes(value)){
+            activeTag.ustensils.push({
+                type: 'ust',
+                name: value.toLowerCase(),
+            })
+        };
     }
     
 }
