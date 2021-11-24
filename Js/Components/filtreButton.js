@@ -45,7 +45,9 @@ export class FiltreButton {
 
         input.addEventListener('keyup', e => {
             e.preventDefault();
-            console.log(input.value);
+            if(input.value.length >= 3){
+                console.log(input.value.length);
+            }
         })
     }
 
