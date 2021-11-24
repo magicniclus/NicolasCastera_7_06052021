@@ -26,23 +26,21 @@ export class AddTag {
 
     addTag () {
         this.tag.ingredients.forEach(element =>{
-            console.log(element);
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', 'tagContainer');
-            this.tagContainer.setAttribute('class', element.type);
+            this.tagContainer.setAttribute('class', 'ing');
             const tags = document.createElement('span');
-            tags.innerHTML = element.name;
+            tags.innerHTML = element;
             this.tagContainer.appendChild(tags);
             this.DOM.appendChild(this.tagContainer);
             this.addArrow();
         })
 
         this.tag.appliance.forEach(element =>{
-            console.log(element);
             this.tagContainer = document.createElement('div');
-            this.tagContainer.setAttribute('class', element.type);
+            this.tagContainer.setAttribute('class', 'app');
             const tags = document.createElement('span');
-            tags.innerHTML = element.name;
+            tags.innerHTML = element;
             this.tagContainer.appendChild(tags);
             this.DOM.appendChild(this.tagContainer);
             this.addArrow();
@@ -51,9 +49,9 @@ export class AddTag {
         this.tag.ustensils.forEach(element =>{
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', 'tagContainer');
-            this.tagContainer.setAttribute('class', element.type);
+            this.tagContainer.setAttribute('class', 'ust');
             const tags = document.createElement('span');
-            tags.innerHTML = element.name;
+            tags.innerHTML = element;
             this.tagContainer.appendChild(tags);
             this.DOM.appendChild(this.tagContainer);
             this.addArrow();
