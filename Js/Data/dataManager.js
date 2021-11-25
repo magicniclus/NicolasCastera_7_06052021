@@ -11,10 +11,10 @@ export let data = allData();
  * @var {Object}
  */
 export let activeTag = {
-    appliance   : [],
-    ustensils   : [],
-    ingredients : [], 
-    text        : []
+    appliance: [],
+    ustensils: [],
+    ingredients: [],
+    text: []
 }
 
 
@@ -40,7 +40,7 @@ export function allData() {
  * @return  {Set}  [return description]
  */
 export function getIngredient() {
-    let ingredient = new Set ()
+    let ingredient = new Set()
     filterData.forEach(recipes => {
         recipes.ingredients.forEach(ing => {
             ingredient.add(ing.ingredient.toLowerCase())
@@ -57,7 +57,7 @@ export function getIngredient() {
  * @return  {Object}  [return description]
  */
 export function getAppliance() {
-    let appliance = new Set ();
+    let appliance = new Set();
     filterData.forEach(element => {
         appliance.add(element.appliance.toLowerCase());
     })
@@ -72,7 +72,7 @@ export function getAppliance() {
  * @return  {Object}  [return description]
  */
 export function getUstensil() {
-    const ustensils = new Set ();
+    const ustensils = new Set();
     filterData.forEach(element => {
         element.ustensils.forEach(ust => {
             ustensils.add(ust.toLowerCase())
@@ -93,45 +93,45 @@ export function getUstensil() {
  * @return  {Object}           [return description]
  */
 export function addNewValueInBtn(value, element) {
-    if (element === 'Ingredients'){   
-        let filterIngredient = new Set ();
+    if (element === 'Ingredients') {
+        let filterIngredient = new Set();
         filterData.forEach(recipe => {
             recipe.ingredients.forEach(element => {
-                if(element.ingredient.toLowerCase() == value){
+                if (element.ingredient.toLowerCase() == value) {
                     filterIngredient.add(recipe);
                 }
             });
         });
         filterData = filterIngredient;
-        if (!activeTag.ingredients.includes(value)){
+        if (!activeTag.ingredients.includes(value)) {
             activeTag.ingredients.push(value)
         }
     }
 
-    if (element ==='Appareil'){
-        let filterAppliance = new Set ();
+    if (element === 'Appareil') {
+        let filterAppliance = new Set();
         filterData.forEach(recipe => {
-            if(recipe.appliance.toLowerCase() == value){
+            if (recipe.appliance.toLowerCase() == value) {
                 filterAppliance.add(recipe);
             }
         })
         filterData = filterAppliance;
-        if (!activeTag.appliance.includes(value)){
+        if (!activeTag.appliance.includes(value)) {
             activeTag.appliance.push(value)
         };
     }
 
-    if (element === 'Ustensils'){
+    if (element === 'Ustensils') {
         let filterUstensil = new Set();
         filterData.forEach(recipe => {
             recipe.ustensils.forEach(ust => {
-                if(ust.toLowerCase() == value){
+                if (ust.toLowerCase() == value) {
                     filterUstensil.add(recipe)
                 }
             });
         })
         filterData = filterUstensil;
-        if (!activeTag.ustensils.includes(value)){
+        if (!activeTag.ustensils.includes(value)) {
             activeTag.ustensils.push(value)
         };
     }
@@ -147,13 +147,23 @@ export function addNewValueInBtn(value, element) {
  *
  * @return  {Object}         [return description]
  */
-export function removeValueInBtn (value, type){
+export function removeValueInBtn(value, type) {
+    const newData = new Set ()
     const index = activeTag[type].indexOf(value);
-    if(index >= 0){
+    if (index >= 0) {
         activeTag[type].forEach(filterRecipe => {
-            if(filterRecipe.toLowerCase() == value){
+            if (filterRecipe.toLowerCase() == value) {
                 activeTag[type].splice(index, 1)
             }
+
+            recipes.forEach((recipe)=> {
+                recipe.ingredients.forEach(element => {
+                    if(!element.ingredient.toLowerCase().includes(value.toLowerCase())){
+                        newData.add(recipe)
+                    }
+                });
+            })
         });
     }
+    console.log(newData);
 }

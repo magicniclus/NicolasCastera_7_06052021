@@ -4,6 +4,7 @@ import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 import { AddTag } from "../Components/addTag.js";
 
+
 let vignetteContainer;
 let filterContainer;
 let addTagBar;
@@ -17,7 +18,7 @@ let addTagBar;
  *
  * @return  {void}             [return description]
  */
-export async function init (domTarget){
+export async function init(domTarget) {
     addTagBar = document.createElement('aside');
     addTagBar.setAttribute('class', 'tagBar');
     await domTarget.appendChild(addTagBar);
@@ -39,10 +40,10 @@ export async function init (domTarget){
  *
  * @return  {void}  [return description]
  */
-function updateTagBar () {
+function updateTagBar() {
     addTagBar.innerHTML = '';
     new AddTag(addTagBar, activeTag, removeTag.bind(this));
- }
+}
 
 
 
@@ -50,14 +51,14 @@ function updateTagBar () {
  * Gestiond de l'affichage des boutons 
  *
  * @return  {void}  [return description]
- */ 
-function addBtnFilter () {
+ */
+function addBtnFilter() {
     filterContainer.innerHTML = '';
-    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ingredients',  'Rechercher un ingrédient')
+    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ingredients', 'Rechercher un ingrédient')
 
-    new FiltreButton (filterContainer, updateBtnFilter.bind(this), 'Appareil', 'Rechercher un appareil')
+    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Appareil', 'Rechercher un appareil')
 
-    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ustensils',  'Rechercher un ustensil')
+    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ustensils', 'Rechercher un ustensil')
 }
 
 
@@ -67,7 +68,7 @@ function addBtnFilter () {
  *
  * @return  {void}  [return description]
  */
-function updateMain (){
+function updateMain() {
     vignetteContainer.innerHTML = '';
     filterData.forEach(recipes => {
         new Vignette(vignetteContainer, recipes)
@@ -85,7 +86,7 @@ function updateMain (){
  *
  * @return  {void}         [return description]
  */
-function updateBtnFilter (type, value){ 
+function updateBtnFilter(type, value) {
     addNewValueInBtn(value, type);
     updateMain();
     addBtnFilter();
@@ -102,7 +103,7 @@ function updateBtnFilter (type, value){
  *
  * @return  {void}         [return description]
  */
-function removeTag(value, type){
+function removeTag(value, type) {
     removeValueInBtn(value, type)
     updateMain();
     addBtnFilter();

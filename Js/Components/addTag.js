@@ -13,11 +13,11 @@ export class AddTag {
      * @param   {FileList}  [callback]   [callback description]
      *
      */
-    constructor (domTarget, tags, callback){
+    constructor(domTarget, tags, callback) {
         this.DOM = domTarget;
         this.callback = callback;
         this.tag = tags;
-        this.render ();
+        this.render();
     }
 
 
@@ -26,7 +26,7 @@ export class AddTag {
      *
      * @return  {void}  [return description]
      */
-    render(){
+    render() {
         this.addTag();
     }
 
@@ -37,8 +37,8 @@ export class AddTag {
      *Ingredient || Ustensils || Appareils
      * @return  {void}  [return description]
      */
-    addTag () {
-        this.tag.ingredients.forEach(element =>{
+    addTag() {
+        this.tag.ingredients.forEach(element => {
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', 'tagContainer');
             this.tagContainer.setAttribute('class', 'ing');
@@ -49,7 +49,7 @@ export class AddTag {
             this.addArrow(element, "ingredients");
         })
 
-        this.tag.appliance.forEach(element =>{
+        this.tag.appliance.forEach(element => {
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', 'app');
             const tags = document.createElement('span');
@@ -59,7 +59,7 @@ export class AddTag {
             this.addArrow(element, "appliance");
         })
 
-        this.tag.ustensils.forEach(element =>{
+        this.tag.ustensils.forEach(element => {
             this.tagContainer = document.createElement('div');
             this.tagContainer.setAttribute('class', 'tagContainer');
             this.tagContainer.setAttribute('class', 'ust');
@@ -80,7 +80,7 @@ export class AddTag {
      *
      * @return  {void}           [return description]
      */
-    addArrow (value, element) {
+    addArrow(value, element) {
         const arrow = document.createElement('i');
         arrow.setAttribute('class', 'far fa-times-circle')
         arrow.onclick = () => {

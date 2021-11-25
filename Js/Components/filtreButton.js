@@ -20,12 +20,11 @@ export class FiltreButton {
 
     render(){
         this.DOM.innerHTML = "";
-        const filterTop = document.createElement('div');
-        filterTop.setAttribute('class', 'filtreBoutton__filterTop');
-        this.DOM.appendChild(filterTop);
-        this.addInput(filterTop);
-        this.addArrow(filterTop);
-        // console.log(this.title);
+        this.filterTop = document.createElement('div');
+        this.filterTop.setAttribute('class', 'filtreBoutton__filterTop');
+        this.DOM.appendChild(this.filterTop);
+        this.addInput(this.filterTop);
+        this.addArrow(this.filterTop);
     }
 
     /**
@@ -43,10 +42,42 @@ export class FiltreButton {
         input.setAttribute('placeholder', this.clickValue ?this.phrasing : "");
         parent.appendChild(input);
 
-        input.addEventListener('keyup', e => {
+        /**
+         * Affichage des tag au click sur l'input
+         *
+         * @param   {Event}  e  [e description]
+         *
+         * @return  {boolean}     [return description]
+         */
+        input.onclick = ((e) => { //BUG Probleme de saisi de valeur au click sur l'input
             e.preventDefault();
+            this.clickValue =true;
+            if (this.clickValue){
+                this.render();
+                this.addTag(this.DOM, this.callback);
+                this.DOM.classList.add('click');
+            }else{
+                this.DOM.classList.remove('click');
+                this.render();
+            };
+
+        })
+
+        /**
+         * Affichage des valeur a la saisi de text
+         *
+         * @param   {Event}  keyup  [keyup description]
+         * @param   {Event}  e      [e description]
+         *
+         * @return  {void}         [return description]
+         */
+        input.addEventListener('keyup', e => {
             if(input.value.length >= 3){
-                console.log(input.value.length);
+                this.listElement.forEach(element => {
+                    if(element.includes(e.target.value)){
+                        console.log(element);
+                    }
+                });
             }
         })
     }
@@ -56,8 +87,6 @@ export class FiltreButton {
      * [addArrow description]
      *
      * @param   {HTMLElement}  parent     [parent description]
-     * @param   {HTMLElement}  container  [container description]
-     * @param   {Function}  callback   [callback description]
      *
      */
     addArrow (parent) {
@@ -66,7 +95,8 @@ export class FiltreButton {
         arrow__container.innerHTML += `<i class="fas fa-chevron-${this.clickValue == false ? 'down' : 'up' }"></i>`;
         arrow__container.style.cursor='pointer';
         parent.appendChild(arrow__container)
-        arrow__container.onclick = () => {
+        arrow__container.onclick = (e) => {
+            e.stopPropagation();
             this.clickValue =! this.clickValue;
             if (this.clickValue){
                 this.render();
@@ -96,7 +126,6 @@ export class FiltreButton {
         this.listElement.forEach(element => {
             const tagContainer__tag = document.createElement('span');
             tagContainer__tag.setAttribute('class', 'tagContainer__tag');
-
             tagContainer__tag.innerHTML = element;
             tagContainer.appendChild(tagContainer__tag);
             tagContainer__tag.onclick = () => {
@@ -110,6 +139,13 @@ export class FiltreButton {
         parent.appendChild(tagContainer);
     }
 
+
+
+    /**
+     * Gestion des données affichés dans les bouton en fonction de leurs titres
+     *
+     * @return  {Object}  [return description]
+     */
     get listElement(){
         if (this.title == "Ingredients") return getIngredient();
         if (this.title == "Appareil") return getAppliance();
