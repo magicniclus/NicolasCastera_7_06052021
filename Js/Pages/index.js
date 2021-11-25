@@ -1,5 +1,5 @@
 // Gestionnaire d'affichage
-import { allData, data, activeTag, addNewValueInIngredientBtn, filterData } from "../Data/dataManager.js";
+import { allData, data, activeTag, addNewValueInBtn, filterData, removeValueInBtn } from "../Data/dataManager.js";
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 import { AddTag } from "../Components/addTag.js";
@@ -26,7 +26,7 @@ export async function init (domTarget){
 
 function updateTagBar () {
     addTagBar.innerHTML = '';
-    new AddTag(addTagBar, activeTag);
+    new AddTag(addTagBar, activeTag, removeTag.bind(this));
  }
 
 function addBtnFilter () {
@@ -45,9 +45,14 @@ function updateMain (){
     })
 }
 
-function updateBtnFilter (type, filterToAdd) {
-    addNewValueInIngredientBtn(filterToAdd, type);
+function updateBtnFilter (type, value){ 
+    addNewValueInBtn(value, type);
     updateMain();
     addBtnFilter();
     updateTagBar();
+}
+
+function removeTag(value, type){
+    removeValueInBtn(value, type);
+    updateBtnFilter();
 }

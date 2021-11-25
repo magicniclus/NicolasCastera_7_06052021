@@ -33,7 +33,7 @@ export class AddTag {
             tags.innerHTML = element;
             this.tagContainer.appendChild(tags);
             this.DOM.appendChild(this.tagContainer);
-            this.addArrow();
+            this.addArrow(element, "ingredients");
         })
 
         this.tag.appliance.forEach(element =>{
@@ -43,7 +43,7 @@ export class AddTag {
             tags.innerHTML = element;
             this.tagContainer.appendChild(tags);
             this.DOM.appendChild(this.tagContainer);
-            this.addArrow();
+            this.addArrow(element, "appliance");
         })
 
         this.tag.ustensils.forEach(element =>{
@@ -54,15 +54,15 @@ export class AddTag {
             tags.innerHTML = element;
             this.tagContainer.appendChild(tags);
             this.DOM.appendChild(this.tagContainer);
-            this.addArrow();
+            this.addArrow(element, "ustensils");
         })
     }
 
-    addArrow () {
+    addArrow (value, element) {
         const arrow = document.createElement('i');
         arrow.setAttribute('class', 'far fa-times-circle')
         arrow.onclick = () => {
-            this.callback(this.tag);
+            this.callback(value, element);
         }
         this.tagContainer.appendChild(arrow);
     }

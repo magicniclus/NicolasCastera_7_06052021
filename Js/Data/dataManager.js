@@ -47,7 +47,7 @@ export function getUstensil() {
     return ustensils;
 }
 
-export function addNewValueInIngredientBtn(value, element) {
+export function addNewValueInBtn(value, element) {
     if (element === 'Ingredients'){   
         let filterIngredient = new Set ();
         filterData.forEach(recipe => {
@@ -61,9 +61,6 @@ export function addNewValueInIngredientBtn(value, element) {
         if (!activeTag.ingredients.includes(value)){
             activeTag.ingredients.push(value)
         }
-        
-        console.log(value);
-        console.log(activeTag);
     }
 
     if (element ==='Appareil'){
@@ -93,5 +90,16 @@ export function addNewValueInIngredientBtn(value, element) {
             activeTag.ustensils.push(value)
         };
     }
-    
+}
+
+export function removeValueInBtn (value, type){
+    let newData = new Set();
+    const index = activeTag[type].indexOf(value);
+    if(index >= 0){
+        activeTag[type].forEach(filterRecipe => {
+            if(filterRecipe.toLowerCase() == value){
+                activeTag[type].splice(index, 1)
+            }
+        });
+    }
 }
