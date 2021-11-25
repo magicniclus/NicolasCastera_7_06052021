@@ -8,8 +8,16 @@ let vignetteContainer;
 let filterContainer;
 let addTagBar;
 
-export async function init (domTarget){
 
+
+/**
+ * Gestion de l'affichage 
+ *
+ * @param   {HTMLElement}  domTarget  [domTarget description]
+ *
+ * @return  {void}             [return description]
+ */
+export async function init (domTarget){
     addTagBar = document.createElement('aside');
     addTagBar.setAttribute('class', 'tagBar');
     await domTarget.appendChild(addTagBar);
@@ -24,11 +32,25 @@ export async function init (domTarget){
     await updateMain();
 }
 
+
+
+/**
+ * Gestion de l'affiche de la bar d'affichage des tag
+ *
+ * @return  {void}  [return description]
+ */
 function updateTagBar () {
     addTagBar.innerHTML = '';
     new AddTag(addTagBar, activeTag, removeTag.bind(this));
  }
 
+
+
+/**
+ * Gestiond de l'affichage des boutons 
+ *
+ * @return  {void}  [return description]
+ */ 
 function addBtnFilter () {
     filterContainer.innerHTML = '';
     new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ingredients',  'Rechercher un ingrédient')
@@ -38,6 +60,13 @@ function addBtnFilter () {
     new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ustensils',  'Rechercher un ustensil')
 }
 
+
+
+/**
+ * Gestion de l'affichage des vignettes 
+ *
+ * @return  {void}  [return description]
+ */
 function updateMain (){
     vignetteContainer.innerHTML = '';
     filterData.forEach(recipes => {
@@ -45,6 +74,17 @@ function updateMain (){
     })
 }
 
+
+
+/**
+ * Gestion de l'envoi des données aux bouton au click sur ces derniers
+ * + mise à jour de l'affichage 
+ *
+ * @param   {string}  type   [type description]
+ * @param   {string}  value  [value description]
+ *
+ * @return  {void}         [return description]
+ */
 function updateBtnFilter (type, value){ 
     addNewValueInBtn(value, type);
     updateMain();
@@ -52,7 +92,19 @@ function updateBtnFilter (type, value){
     updateTagBar();
 }
 
+
+
+/**
+ * [removeTag description]
+ *
+ * @param   {string}  value  [value description]
+ * @param   {string}  type   [type description]
+ *
+ * @return  {void}         [return description]
+ */
 function removeTag(value, type){
-    removeValueInBtn(value, type);
-    updateBtnFilter();
+    removeValueInBtn(value, type)
+    updateMain();
+    addBtnFilter();
+    updateTagBar();
 }

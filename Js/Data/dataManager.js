@@ -5,6 +5,11 @@ let getAllData;
 export let filterData = new Set(); //Retourne les données potentiellement modifiable 
 export let data = allData();
 
+/**
+ * Récuperation des tags actifs 
+ *
+ * @var {Object}
+ */
 export let activeTag = {
     appliance   : [],
     ustensils   : [],
@@ -12,6 +17,14 @@ export let activeTag = {
     text        : []
 }
 
+
+
+/**
+ * Récuperation de l'ensemble des données et ajout de ces dernieres
+ * dans la varible filterData
+ *
+ * @return  {Object}  [return description]
+ */
 export function allData() {
     recipes.forEach(recipes => {
         filterData.add(recipes);
@@ -19,6 +32,13 @@ export function allData() {
     return filterData;
 }
 
+
+
+/**
+ * Récuperation des ingrédients des recettes dans filterData
+ *
+ * @return  {Set}  [return description]
+ */
 export function getIngredient() {
     let ingredient = new Set ()
     filterData.forEach(recipes => {
@@ -29,6 +49,13 @@ export function getIngredient() {
     return ingredient;
 }
 
+
+
+/**
+ * Récuperation des appareils des recettes dans filterData
+ *
+ * @return  {Object}  [return description]
+ */
 export function getAppliance() {
     let appliance = new Set ();
     filterData.forEach(element => {
@@ -37,6 +64,13 @@ export function getAppliance() {
     return appliance;
 }
 
+
+
+/**
+ * Récuperation des ustensils des recettes dans filterData
+ *
+ * @return  {Object}  [return description]
+ */
 export function getUstensil() {
     const ustensils = new Set ();
     filterData.forEach(element => {
@@ -47,6 +81,17 @@ export function getUstensil() {
     return ustensils;
 }
 
+
+
+/**
+ * Filtre des tags dans les bouton au click +
+ * Ajout des tags dans activeTag
+ *
+ * @param   {string}  value    [value description]
+ * @param   {string}  element  [element description]
+ *
+ * @return  {Object}           [return description]
+ */
 export function addNewValueInBtn(value, element) {
     if (element === 'Ingredients'){   
         let filterIngredient = new Set ();
@@ -92,8 +137,17 @@ export function addNewValueInBtn(value, element) {
     }
 }
 
+
+
+/**
+ * Suppression des tag cliqué de activeTag
+ *
+ * @param   {string}  value  [value description]
+ * @param   {string}  type   [type description]
+ *
+ * @return  {Object}         [return description]
+ */
 export function removeValueInBtn (value, type){
-    let newData = new Set();
     const index = activeTag[type].indexOf(value);
     if(index >= 0){
         activeTag[type].forEach(filterRecipe => {

@@ -20,10 +20,23 @@ export class AddTag {
         this.render ();
     }
 
+
+    /**
+     * Gestion de l'affichage des tag 
+     *
+     * @return  {void}  [return description]
+     */
     render(){
         this.addTag();
     }
 
+
+
+    /**
+     *Ajout des tag dans le contener en fonction de leurs typologie 
+     *Ingredient || Ustensils || Appareils
+     * @return  {void}  [return description]
+     */
     addTag () {
         this.tag.ingredients.forEach(element =>{
             this.tagContainer = document.createElement('div');
@@ -58,6 +71,15 @@ export class AddTag {
         })
     }
 
+
+    /**
+     * Ajout de la flèche syr les bouton et du callback au click 
+     *
+     * @param   {string}  value    [value description]
+     * @param   {string}  element  [element description]
+     *
+     * @return  {void}           [return description]
+     */
     addArrow (value, element) {
         const arrow = document.createElement('i');
         arrow.setAttribute('class', 'far fa-times-circle')

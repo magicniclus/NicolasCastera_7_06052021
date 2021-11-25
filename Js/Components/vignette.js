@@ -1,4 +1,11 @@
 export class Vignette {
+    /**
+     * Gestion de l'affiche des vignette 
+     *
+     * @param   {HTMLElement}  domTarget  [domTarget description]
+     * @param   {Object}  props      [props description]
+     *
+     */
     constructor (domTarget, props){
         this.DOM = document.createElement('article');
         this.DOM.setAttribute('class', 'vignette__container');
