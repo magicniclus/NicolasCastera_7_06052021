@@ -1,20 +1,16 @@
-import { getIngredient, getAppliance, getUstensil } from "../Data/dataManager.js";
+import {} from "../Data/dataManagers.js";
 
 export class FiltreButton {
 
     constructor (domTarget, callback, title, phrasing) {
         this.title = title;
-        //this.className = title;
         this.DOM = document.createElement('div');
         this.DOM.classList.add('filtreButton');
         this.DOM.classList.add(title);
         this.phrasing = phrasing;
-        //this.list = props;
         this.callback = callback;
-        // this.fonctionDeux = fonctionDeux;
         domTarget.appendChild(this.DOM)
         this.clickValue = false;
-        getIngredient()
         this.render();
     }
 
@@ -29,7 +25,7 @@ export class FiltreButton {
 
     /**
      * [addInput description]
-     *
+     *é
      * @param   {HTMLElement}  parent  [parent description]
      *
      */
@@ -49,8 +45,7 @@ export class FiltreButton {
          *
          * @return  {boolean}     [return description]
          */
-        input.onclick = ((e) => { //BUG Probleme de saisi de valeur au click sur l'input
-            e.preventDefault();
+        input.oninput = ((e) => { //BUG Probleme de saisi de valeur au click sur l'input Debug oninput
             this.clickValue =true;
             if (this.clickValue){
                 this.render();
@@ -147,8 +142,8 @@ export class FiltreButton {
      * @return  {Object}  [return description]
      */
     get listElement(){
-        if (this.title == "Ingredients") return getIngredient();
-        if (this.title == "Appareil") return getAppliance();
-        return getUstensil();
+        // if (this.title == "Ingredients") return getIngredient();
+        // if (this.title == "Appareil") return updateApplianceList();
+        // return updateUstensilsList();
     }
 } 

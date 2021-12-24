@@ -1,5 +1,5 @@
 // Gestionnaire d'affichage
-import { allData, data, activeTag, addNewValueInBtn, filterData, removeValueInBtn } from "../Data/dataManager.js";
+import {activeTag, getRecipes} from "../Data/dataManagers.js"
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 import { AddTag } from "../Components/addTag.js";
@@ -42,7 +42,7 @@ export async function init(domTarget) {
  */
 function updateTagBar() {
     addTagBar.innerHTML = '';
-    new AddTag(addTagBar, activeTag, removeTag.bind(this));
+    new AddTag(addTagBar, activeTag);
 }
 
 
@@ -54,11 +54,11 @@ function updateTagBar() {
  */
 function addBtnFilter() {
     filterContainer.innerHTML = '';
-    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ingredients', 'Rechercher un ingrédient')
+    // new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ingredients', 'Rechercher un ingrédient')
 
-    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Appareil', 'Rechercher un appareil')
+    // new FiltreButton(filterContainer, updateTagList.bind(this), 'Appareil', 'Rechercher un appareil')
 
-    new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ustensils', 'Rechercher un ustensil')
+    // new FiltreButton(filterContainer, updateTagList.bind(this), 'Ustensils', 'Rechercher un ustensil')
 }
 
 
@@ -70,7 +70,7 @@ function addBtnFilter() {
  */
 function updateMain() {
     vignetteContainer.innerHTML = '';
-    filterData.forEach(recipes => {
+    getRecipes().forEach(recipes => {
         new Vignette(vignetteContainer, recipes)
     })
 }
@@ -84,28 +84,12 @@ function updateMain() {
  * @param   {string}  type   [type description]
  * @param   {string}  value  [value description]
  *
- * @return  {void}         [return description]
  */
-function updateBtnFilter(type, value) {
-    addNewValueInBtn(value, type);
-    updateMain();
-    addBtnFilter();
-    updateTagBar();
-}
-
-
-
-/**
- * [removeTag description]
- *
- * @param   {string}  value  [value description]
- * @param   {string}  type   [type description]
- *
- * @return  {void}         [return description]
- */
-function removeTag(value, type) {
-    removeValueInBtn(value, type)
-    updateMain();
-    addBtnFilter();
-    updateTagBar();
+async function updateTagList(type, value) {
+        // await initIdUstensils();
+        // await updateUstensilsList();
+        // await makeActiveTag(value, type);
+        // await updateAvailableRecipes()
+        // await updateMain();
+        // await updateTagBar();
 }
