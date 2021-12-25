@@ -1,5 +1,5 @@
 // Gestionnaire d'affichage
-import {activeTag, getRecipes} from "../Data/dataManagers.js"
+import {activeTag, getRecipes, makeActiveTag} from "../Data/dataManagers.js"
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 import { AddTag } from "../Components/addTag.js";
@@ -54,11 +54,11 @@ function updateTagBar() {
  */
 function addBtnFilter() {
     filterContainer.innerHTML = '';
-    // new FiltreButton(filterContainer, updateBtnFilter.bind(this), 'Ingredients', 'Rechercher un ingrédient')
+    new FiltreButton(filterContainer, updateTagList.bind(this), 'Ingredients', 'Rechercher un ingrédient')
 
-    // new FiltreButton(filterContainer, updateTagList.bind(this), 'Appareil', 'Rechercher un appareil')
+    new FiltreButton(filterContainer, updateTagList.bind(this), 'Appareil', 'Rechercher un appareil')
 
-    // new FiltreButton(filterContainer, updateTagList.bind(this), 'Ustensils', 'Rechercher un ustensil')
+    new FiltreButton(filterContainer, updateTagList.bind(this), 'Ustensils', 'Rechercher un ustensil')
 }
 
 
@@ -88,7 +88,7 @@ function updateMain() {
 async function updateTagList(type, value) {
         // await initIdUstensils();
         // await updateUstensilsList();
-        // await makeActiveTag(value, type);
+        await makeActiveTag(type, value);
         // await updateAvailableRecipes()
         // await updateMain();
         // await updateTagBar();

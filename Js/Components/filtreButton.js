@@ -1,4 +1,4 @@
-import {} from "../Data/dataManagers.js";
+import {updateUstensilsList, updateApplianceList, updateIngredientList} from "../Data/dataManagers.js";
 
 export class FiltreButton {
 
@@ -142,8 +142,8 @@ export class FiltreButton {
      * @return  {Object}  [return description]
      */
     get listElement(){
-        // if (this.title == "Ingredients") return getIngredient();
-        // if (this.title == "Appareil") return updateApplianceList();
-        // return updateUstensilsList();
+        if (this.title == "Ingredients") return updateIngredientList();
+        if (this.title == "Appareil") return updateApplianceList();
+        return updateUstensilsList();
     }
 } 
