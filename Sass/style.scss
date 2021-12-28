@@ -10,6 +10,26 @@ body {
     box-sizing: border-box;
     font-family: 'Lato', sans-serif;
 
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .header {
+            margin-top: 3em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            h1 {
+                margin-top: 4px;
+                font-weight: 700;
+                font-style: normal;
+                color: #D04F4F;
+                ;
+            }
+        }
+    }
+
     main {
         display: flex;
         flex-direction: column;

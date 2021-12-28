@@ -82,3 +82,4 @@ async function updateTagList(type, value) {
         await updateMain();
         await updateTagBar();
 }
+
