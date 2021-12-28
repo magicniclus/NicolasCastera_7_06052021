@@ -3,11 +3,13 @@ import {activeTag, getRecipes, makeActiveTag} from "../Data/dataManagers.js"
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 import { AddTag } from "../Components/addTag.js";
+import { SearchBar } from "../Components/searchBar.js";
 
 
 let vignetteContainer;
 let filterContainer;
 let addTagBar;
+let searchBar;
 
 /**
  * Gestion de l'affichage 
@@ -16,6 +18,7 @@ let addTagBar;
  *
  */
 export async function init(domTarget) {
+    await new SearchBar(domTarget, 'Rechercher un ingrédient, appareil, ustensiles ou une recette')
     addTagBar = document.createElement('aside');
     addTagBar.setAttribute('class', 'tagBar');
     await domTarget.appendChild(addTagBar);

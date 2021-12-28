@@ -37,9 +37,6 @@ let ingredientList;
  */
 let newRecipes = [];
 
-// let globalValideRecipes = [];
-
-
 initIdUstensils();
 initIdAppliance();
 initIdIngredient();
@@ -109,27 +106,29 @@ export function getRecipes() {
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
 
-    console.log("Ust: ", ustValideRecipes);
-    console.log("App: ", appValideRecipes);
-    console.log("Ing: ", ingValideRecipes);
+    // console.log("Ust: ", ustValideRecipes);
+    // console.log("App: ", appValideRecipes);
+    // console.log("Ing: ", ingValideRecipes);
     if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0) return recipes;
 
     globalValideRecipes = [];
     newRecipes = [];
 
-    if (ingValideRecipes.length > 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0) {
+    if (ingValideRecipes.length > 0 ) {
         for (const id of ingValideRecipes) {
             if (globalValideRecipes.indexOf(id) === -1) {
                 globalValideRecipes.push(id);
             }
         }
-    }else if (ingValideRecipes.length === 0 && appValideRecipes.length > 0 && ustValideRecipes.length === 0) {
+    }
+    if (appValideRecipes.length > 0 ) {
         for (const id of appValideRecipes) {
             if (globalValideRecipes.indexOf(id) === -1) {
                 globalValideRecipes.push(id);
             }
         }
-    }else if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length > 0) {
+    }
+    if (ustValideRecipes.length > 0) {
         for (const id of ustValideRecipes) {
             if (globalValideRecipes.indexOf(id) === -1) {
                 globalValideRecipes.push(id);
@@ -144,6 +143,12 @@ export function getRecipes() {
     return newRecipes;
 }
 
+/**
+ * Création de la list des ustensils qui correspond à l'ensemble des ustensils de l'ensemble des 
+ * recettes si activeTag === 0 sinon reprends les ustensils de newRecipes
+ *
+ * @return  {Array}  [retourn la list des ustensils actifs]
+ */
 export function updateUstensilsList(){
     ustensilList = new Set ();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0){
@@ -162,6 +167,12 @@ export function updateUstensilsList(){
     return [...ustensilList];
 }
 
+/**
+ * Création de la list des appareils qui correspond à l'ensemble des appareils de l'ensemble des 
+ * recettes si activeTag === 0 sinon reprends les appareils de newRecipes
+ *
+ * @return  {Array}  [retourn la list des appareils actifs]
+ */
 export function updateApplianceList(){
     applianceList = new Set ();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0){
@@ -178,9 +189,9 @@ export function updateApplianceList(){
 
 /**
  * Création de la list des ingredients qui correspond à l'ensemble des ingredients de l'ensemble des 
- * recettes si activeTag === 0 sinon reprends les appareils de newRecipes
+ * recettes si activeTag === 0 sinon reprends les ingrédients de newRecipes
  *
- * @return  {Array}  [retourn la list des appareils actifs]
+ * @return  {Array}  [retourn la list des ingrédients actifs]
  */
 export function updateIngredientList() {
     ingredientList = new Set();

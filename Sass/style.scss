@@ -2,6 +2,7 @@
 @import "Mixins/addTag.scss";
 @import "Mixins/filtreBtn.scss";
 @import "Mixins/vignette.scss";
+@import 'Mixins/searchBar.scss';
 
 body {
     margin: 0;
@@ -16,6 +17,7 @@ body {
         align-items: center;
         @include addTag;
         @include filtreButton;
+        @include searchBar;
         @include vignette;
     }
 }

@@ -125,6 +125,36 @@ body main .filterContainer .Ustensils {
 body main .filterContainer .Ustensils .filtreBoutton__filterTop input {
   background-color: #ED6454;
 }
+body main .searchBar {
+  width: 90%;
+  position: relative;
+  background-color: #E7E7E7;
+  border-radius: 5px;
+  margin-bottom: 1em;
+}
+body main .searchBar input {
+  width: 90%;
+  height: 69px;
+  margin-left: 2em;
+  border-radius: 5px;
+  border: none;
+  background-color: #E7E7E7;
+  font-size: 18px;
+  z-index: 1;
+}
+body main .searchBar input ::placeholder {
+  padding-left: 2em;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+}
+body main .searchBar i {
+  font-size: 2em;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 body main .vignette__container {
   width: 90%;
   display: grid;
