@@ -77,7 +77,6 @@ export class FiltreButton {
         })
     }
 
-
     /**
      * [addArrow description]
      *
@@ -133,8 +132,6 @@ export class FiltreButton {
 
         parent.appendChild(tagContainer);
     }
-
-
 
     /**
      * Gestion des données affichés dans les bouton en fonction de leurs titres

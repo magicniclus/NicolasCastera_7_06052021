@@ -9,14 +9,11 @@ let vignetteContainer;
 let filterContainer;
 let addTagBar;
 
-
-
 /**
  * Gestion de l'affichage 
  *
  * @param   {HTMLElement}  domTarget  [domTarget description]
  *
- * @return  {void}             [return description]
  */
 export async function init(domTarget) {
     addTagBar = document.createElement('aside');
@@ -33,8 +30,6 @@ export async function init(domTarget) {
     await updateMain();
 }
 
-
-
 /**
  * Gestion de l'affiche de la bar d'affichage des tag
  *
@@ -44,8 +39,6 @@ function updateTagBar() {
     addTagBar.innerHTML = '';
     new AddTag(addTagBar, activeTag);
 }
-
-
 
 /**
  * Gestiond de l'affichage des boutons 
@@ -61,8 +54,6 @@ function addBtnFilter() {
     new FiltreButton(filterContainer, updateTagList.bind(this), 'Ustensils', 'Rechercher un ustensil')
 }
 
-
-
 /**
  * Gestion de l'affichage des vignettes 
  *
@@ -75,8 +66,6 @@ function updateMain() {
     })
 }
 
-
-
 /**
  * Gestion de l'envoi des données aux bouton au click sur ces derniers
  * + mise à jour de l'affichage 
@@ -86,10 +75,7 @@ function updateMain() {
  *
  */
 async function updateTagList(type, value) {
-        // await initIdUstensils();
-        // await updateUstensilsList();
         await makeActiveTag(type, value);
-        // await updateAvailableRecipes()
-        // await updateMain();
-        // await updateTagBar();
+        await updateMain();
+        await updateTagBar();
 }
