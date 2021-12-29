@@ -93,7 +93,8 @@ export let activeTag = {
     appliance: [],
     ustensils: [],  //[couteau]
     ingredients: [],
-    text: []
+    text: [],
+    title: []
 }
 
 /**
@@ -105,36 +106,39 @@ export function getRecipes() {
     updateAvailableRecipesByUst();
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
-
-    // console.log("Ust: ", ustValideRecipes);
-    // console.log("App: ", appValideRecipes);
-    // console.log("Ing: ", ingValideRecipes);
     if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0) return recipes;
 
     globalValideRecipes = [];
-    newRecipes = [];
 
-    if (ingValideRecipes.length > 0 ) {
-        for (const id of ingValideRecipes) {
-            if (globalValideRecipes.indexOf(id) === -1) {
-                globalValideRecipes.push(id);
+    //Ajout des recettes ingredients
+    if (ingValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = ingValideRecipes;
+    if (ingValideRecipes.length > 0 && globalValideRecipes.length > 0) {
+        globalValideRecipes = globalValideRecipes.filter(id => {
+            if (ingValideRecipes.includes(id)) {
+                return id;
             }
-        }
+        })
+    };
+    //Ajout des recettes appareils
+    if (appValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = appValideRecipes;
+    if (appValideRecipes.length > 0 && globalValideRecipes.length > 0) {
+        globalValideRecipes = globalValideRecipes.filter(id => {
+            if (appValideRecipes.includes(id)) {
+                return id;
+            }
+        })
     }
-    if (appValideRecipes.length > 0 ) {
-        for (const id of appValideRecipes) {
-            if (globalValideRecipes.indexOf(id) === -1) {
-                globalValideRecipes.push(id);
+    //Ajout des reettes ustensils
+    if (ustValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = ustValideRecipes;
+    if (ustValideRecipes.length > 0 && globalValideRecipes.length > 0) {
+        globalValideRecipes = globalValideRecipes.filter(id => {
+            if (ustValideRecipes.includes(id)) {
+                return id;
             }
-        }
+        })
     }
-    if (ustValideRecipes.length > 0) {
-        for (const id of ustValideRecipes) {
-            if (globalValideRecipes.indexOf(id) === -1) {
-                globalValideRecipes.push(id);
-            }
-        }
-    } 
+
+    newRecipes = [];
 
     globalValideRecipes.forEach(id => {
         newRecipes.push(recipes[id]);
@@ -149,9 +153,9 @@ export function getRecipes() {
  *
  * @return  {Array}  [retourn la list des ustensils actifs]
  */
-export function updateUstensilsList(){
-    ustensilList = new Set ();
-    if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0){
+export function updateUstensilsList() {
+    ustensilList = new Set();
+    if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
         recipes.forEach(rec => {
             rec.ustensils.forEach(ust => {
                 ustensilList.add(ust.toLowerCase());
@@ -173,9 +177,9 @@ export function updateUstensilsList(){
  *
  * @return  {Array}  [retourn la list des appareils actifs]
  */
-export function updateApplianceList(){
-    applianceList = new Set ();
-    if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0){
+export function updateApplianceList() {
+    applianceList = new Set();
+    if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
         recipes.forEach(rec => {
             applianceList.add(rec.appliance.toLowerCase());
         })

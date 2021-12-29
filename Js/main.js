@@ -18,6 +18,5 @@ function addLogo (domTarget){
             <img src="images/Vector.png" alt="logo du site les petits plats"/>
             <h1>Les petits plats</h1>
         </div>
-
     `;
 } 
