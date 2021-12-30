@@ -1,10 +1,9 @@
 // Gestionnaire d'affichage
-import {activeTag, getRecipes, makeActiveTag} from "../Data/dataManagers.js"
+import {activeTag, getRecipes, makeActiveTag, updateActiveTag, getRecipesByTagBar} from "../Data/dataManagers.js"
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 import { AddTag } from "../Components/addTag.js";
 import { SearchBar } from "../Components/searchBar.js";
-
 
 let vignetteContainer;
 let filterContainer;
@@ -18,7 +17,7 @@ let searchBar;
  *
  */
 export async function init(domTarget) {
-    await new SearchBar(domTarget, 'Rechercher un ingrédient, appareil, ustensiles ou une recette')
+    await new SearchBar(domTarget, 'Rechercher un ingrédient, appareil, ustensiles ou une recette', updateSearchBar.bind(this))
     addTagBar = document.createElement('aside');
     addTagBar.setAttribute('class', 'tagBar');
     await domTarget.appendChild(addTagBar);
@@ -40,7 +39,7 @@ export async function init(domTarget) {
  */
 function updateTagBar() {
     addTagBar.innerHTML = '';
-    new AddTag(addTagBar, activeTag);
+    new AddTag(addTagBar, activeTag, updateRecipes.bind(this));
 }
 
 /**
@@ -78,8 +77,19 @@ function updateMain() {
  *
  */
 async function updateTagList(type, value) {
-        await makeActiveTag(type, value);
-        await updateMain();
-        await updateTagBar();
+    await makeActiveTag(type.toLowerCase(), value.toLowerCase());
+    await updateMain();
+    await updateTagBar();
 }
 
+async function updateSearchBar (value){
+    await getRecipesByTagBar(value)
+    await updateMain();
+}
+
+async function updateRecipes (type, value) {
+    await updateActiveTag(type, value);
+    await updateMain();
+    await updateTagBar();
+}
+          

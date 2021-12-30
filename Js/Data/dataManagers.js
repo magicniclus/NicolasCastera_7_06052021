@@ -30,6 +30,8 @@ let ustensilList;
 let applianceList;
 let ingredientList;
 
+let searchValue = new Set();
+
 /**
  * Recette filtré à retourner 
  *
@@ -91,7 +93,7 @@ export function initIdIngredient() {
 */
 export let activeTag = {
     appliance: [],
-    ustensils: [],  //[couteau]
+    ustensils: [],
     ingredients: [],
     text: [],
     title: []
@@ -106,7 +108,11 @@ export function getRecipes() {
     updateAvailableRecipesByUst();
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
-    if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0) return recipes;
+
+    console.log(Object.values([...searchValue])[0]);
+    console.log(ingValideRecipes);
+
+    if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0 && [...searchValue].length === 0) return recipes;
 
     globalValideRecipes = [];
 
@@ -136,6 +142,15 @@ export function getRecipes() {
                 return id;
             }
         })
+    }    
+
+    if([...searchValue].length > 0 && globalValideRecipes.length === 0) globalValideRecipes = [...searchValue][0];
+    if([...searchValue].length > 0 && globalValideRecipes.length > 0){
+        globalValideRecipes = globalValideRecipes.filter(id => {
+            if([...searchValue][0].includes(id)){
+                return id;
+            }
+        })
     }
 
     newRecipes = [];
@@ -143,8 +158,40 @@ export function getRecipes() {
     globalValideRecipes.forEach(id => {
         newRecipes.push(recipes[id]);
     })
-
     return newRecipes;
+}
+
+/**
+ * On trouve les id des recettes qui correspondent aux valeurs rentré dans la searchbar
+ *
+ * @param   {string}  value  valeur saisi dans la search bar
+ *
+ * @return  {Array}         change le contenu du tableau searchValue 
+ */
+export function getRecipesByTagBar (value){
+    if(value.length === 0){
+        searchValue = new Set()
+    }
+    if(value.length > 2){
+        if(Object.keys(listIdOfRecipesByUstensils).includes(value)){
+            searchValue = new Set ();
+            searchValue.add(listIdOfRecipesByUstensils[value])
+
+            return [...searchValue]
+        }
+        if(Object.keys(listIdOfRecipesByAppliance).includes(value)){
+            searchValue = new Set ();
+            searchValue.add(listIdOfRecipesByAppliance[value])
+
+            return [...searchValue]
+        }
+        if(Object.keys(listIdOfRecipesByIngredient).includes(value)){
+            searchValue = new Set ();
+            searchValue.add(listIdOfRecipesByIngredient[value])
+
+            return [...searchValue]
+        }
+    }
 }
 
 /**
@@ -228,27 +275,21 @@ export function makeActiveTag(type, value) {
     const indexApp = activeTag.appliance.indexOf(value);
     const indexIng = activeTag.ingredients.indexOf(value);
 
-    if (type === "Ustensils") {
+    if (type === "ustensils") {
         if (indexUst === -1) {
             activeTag.ustensils.push(value.toLowerCase())
-        } else {
-            activeTag.ustensils.splice(indexUst, 1)
-        }
+        } 
     }
 
-    if (type === "Appareil") {
+    if (type === "appareil") {
         if (indexIng === -1) {
             activeTag.appliance.push(value.toLowerCase())
-        } else {
-            activeTag.appliance.splice(indexApp, 1)
-        }
+        } 
     }
 
-    if (type === "Ingredients") {
+    if (type === "ingredients") {
         if (indexIng === -1) {
             activeTag.ingredients.push(value.toLowerCase())
-        } else {
-            activeTag.ingredients.splice(indexIng, 1)
         }
     }
 }
@@ -315,4 +356,19 @@ function updateMatchingList(refList, filterList) {
         if (filterList.indexOf(id) !== -1) newList.push(id)
     }
     return newList;
+}
+
+/**
+ * Supression des l'élément dans activeTag
+ *
+ * @param   {string}  value  [value description]
+ * @param   {string}  type   [type description]
+ *
+ * @return  {void}         [return description]
+ */
+export function updateActiveTag (type, value){
+    const index = activeTag[type].indexOf(value);
+    if(index !== -1){
+        activeTag[type].splice(index, 1);
+    }
 }

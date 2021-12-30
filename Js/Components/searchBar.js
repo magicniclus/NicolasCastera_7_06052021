@@ -1,10 +1,19 @@
 //Création d'une search bar
 
 export class SearchBar {
-    constructor (domTarget, phrasing) {
+    /**
+     * [constructor description]
+     *
+     * @param   {HTMLElement}  domTarget  [domTarget description]
+     * @param   {String}  phrasing   [phrasing description]
+     * @param   {Function}  callBack   [callBack description]
+     *
+     */
+    constructor (domTarget, phrasing, callBack) {
         this.phrasing = phrasing;
-
+        this.callBack = callBack;
         this.clickValue = false;
+        this.refList = 'coco'
 
         this.DOM = document.createElement('div');
         this.DOM.setAttribute('class', 'searchBar');
@@ -33,7 +42,7 @@ export class SearchBar {
 
         input.addEventListener('keyup', e => {
             e.preventDefault();
-            console.log(input.value);
+            this.callBack(e.target.value)
         })
     }
 }

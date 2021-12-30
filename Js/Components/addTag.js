@@ -8,7 +8,7 @@ export class AddTag {
     /**
      * [constructor description]
      *
-     * @param   {HTMLElement}  domTarget  [domTarget description]
+     * @param   {Function}  domTarget  [domTarget description]
      * @param   {Object}  tag        [tag description]
      * @param   {FileList}  [callback]   [callback description]
      *
@@ -84,7 +84,7 @@ export class AddTag {
         const arrow = document.createElement('i');
         arrow.setAttribute('class', 'far fa-times-circle')
         arrow.onclick = () => {
-            this.callback(value, element);
+            this.callback(element, value);
         }
         this.tagContainer.appendChild(arrow);
     }
