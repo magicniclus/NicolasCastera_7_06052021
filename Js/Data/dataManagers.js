@@ -9,6 +9,8 @@ import { recipes } from "./data.js";
 const listIdOfRecipesByUstensils = {};
 const listIdOfRecipesByAppliance = {};
 const listIdOfRecipesByIngredient = {};
+const listIdOfRecipesByTitle = {};
+const listIdOfRecipesByText = {};
 
 /**
  * Liste des id valides par type 
@@ -30,7 +32,7 @@ let ustensilList;
 let applianceList;
 let ingredientList;
 
-let searchValue = new Set();
+let searchValue = [];
 
 /**
  * Recette filtré à retourner 
@@ -42,48 +44,128 @@ let newRecipes = [];
 initIdUstensils();
 initIdAppliance();
 initIdIngredient();
+initIdTitle();
+initIdText();
 
 /**
- * Retourne une clé valeur pour l'ensemble des id des ustensils ok
+ * Retourne une clé valeur pour l'ensemble des id des ustensils 
  *
  * @return  {Object}  Renvoi un objet 
  */
 export function initIdUstensils() {
-    for (let i = 0, size = recipes.length; i < size; i++) {
-        recipes[i].ustensils.forEach(ustensil => {
-            if (listIdOfRecipesByUstensils[ustensil] === undefined) listIdOfRecipesByUstensils[ustensil] = [];
-            if (listIdOfRecipesByUstensils[ustensil].indexOf(i) === -1) listIdOfRecipesByUstensils[ustensil].push(i)
-        });
+    let word;
+    let ustensilName;
+    for (let i = 0, size = recipes.length; i < size; i++){
+        recipes[i].ustensils.forEach(ust => {
+            ustensilName = ust.toLowerCase();
+            for( let ii=3, size=ustensilName.length; ii<size +1; ii++){
+                word = ustensilName.slice(0,ii);
+                if (listIdOfRecipesByUstensils[word] === undefined) listIdOfRecipesByUstensils[word] = [];
+                listIdOfRecipesByUstensils[word].push(i)
+            }
+        })
     }
     return listIdOfRecipesByUstensils;
 }
 
 /**
- * Retourne une clé valeur pour l'ensemble des id des appareils ok
+ * Retourne une clé valeur pour l'ensemble des id des appareils 
  *
  * @return  {Object}  Renvoi un objet 
  */
 export function initIdAppliance() {
-    for (let i = 0, size = recipes.length; i < size; i++) {
-        if (listIdOfRecipesByAppliance[[recipes[i].appliance.toLocaleLowerCase()]] === undefined) listIdOfRecipesByAppliance[[recipes[i].appliance.toLocaleLowerCase()]] = [];
-        if (listIdOfRecipesByAppliance[[recipes[i].appliance.toLocaleLowerCase()]].indexOf(i) === -1) listIdOfRecipesByAppliance[[recipes[i].appliance.toLocaleLowerCase()]].push(i)
-    };
-    return listIdOfRecipesByAppliance;
+    let word;
+    let applianceName;
+    for (let i = 0, size = recipes.length; i < size; i++){
+        applianceName = recipes[i].appliance.toLowerCase();
+        for( let ii=3, size=applianceName.length; ii<size +1; ii++){
+            word = applianceName.slice(0,ii);
+            if (listIdOfRecipesByAppliance[word] === undefined) listIdOfRecipesByAppliance[word] = [];
+            listIdOfRecipesByAppliance[word].push(i)
+        }
+    }
 }
 
 /**
-* Retourne une clé valeur pour l'ensemble des id des ingredient ok
+* Retourne une clé valeur pour l'ensemble des id des ingredient 
 *
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdIngredient() {
+    let word;
+    let ingredientName;
     for (let i = 0, size = recipes.length; i < size; i++) {
-        for (let r = 0, rSize = recipes[i].ingredients.length; r < rSize; r++) {
-            if (listIdOfRecipesByIngredient[[recipes[i].ingredients[r].ingredient.toLocaleLowerCase()]] === undefined) listIdOfRecipesByIngredient[[recipes[i].ingredients[r].ingredient.toLocaleLowerCase()]] = [];
-            if (listIdOfRecipesByIngredient[[recipes[i].ingredients[r].ingredient.toLocaleLowerCase()]].indexOf(i) === -1) listIdOfRecipesByIngredient[[recipes[i].ingredients[r].ingredient.toLocaleLowerCase()]].push(i)
-        }
+        recipes[i].ingredients.forEach(ingredient => {
+            ingredientName = ingredient.ingredient.toLowerCase();
+            for( let ii=3, size=ingredientName.length; ii<size +1; ii++){
+                word = ingredientName.slice(0,ii);
+                if (listIdOfRecipesByIngredient[word] === undefined) listIdOfRecipesByIngredient[word] = [];
+                listIdOfRecipesByIngredient[word].push(i)
+            }
+        });
     };
     return listIdOfRecipesByIngredient;
+}
+
+/**
+* Retourne une clé valeur pour l'ensemble des id des titre 
+*
+* @return  {Object}  Renvoi un objet 
+*/
+export function initIdTitle() {
+    const list = {}
+    let word;
+    let listIdOfRecipesByTitle;
+    for (let i = 0, size = recipes.length; i < size; i++){
+        listIdOfRecipesByTitle = recipes[i].name.toLowerCase();
+        for( let ii=3, size=listIdOfRecipesByTitle.length; ii<size +1; ii++){
+            word = listIdOfRecipesByTitle.slice(0,ii);
+            if (list[word] === undefined) list[word] = [];
+            list[word].push(i)
+        }
+    }
+    return listIdOfRecipesByTitle;
+}
+
+function initApp() {
+    const list = {}
+    let word;
+    let descriptionName;
+    for (let i = 0, size = recipes.length; i < size; i++){
+        descriptionName = recipes[i].description.toLowerCase();
+        let newValue = descriptionName.split(" ");
+        for(let ii = 0, size=newValue.length; ii < size -1; ii++){
+            for(let iii =3, size = newValue[ii].length; iii < size +1; iii++){
+                word = newValue[ii].slice(0, iii);
+                if (list[word] === undefined) list[word] = [];
+                list[word].push(i)
+            }
+        }
+
+    }
+}
+
+/**
+* Retourne une clé valeur pour l'ensemble des id des descriptions
+*
+* @return  {Object}  Renvoi un objet 
+*/
+export function initIdText() {
+    let word;
+    let descriptionName;
+    for (let i = 0, size = recipes.length; i < size; i++){
+        descriptionName = recipes[i].description.toLowerCase();
+        let newValue = descriptionName.split(" ");
+        for(let ii = 0, size=newValue.length; ii < size -1; ii++){
+            for(let iii =3, size = newValue[ii].length; iii < size +1; iii++){
+                word = newValue[ii].slice(0, iii);
+                if (listIdOfRecipesByText[word] === undefined) listIdOfRecipesByText[word] = [];
+                listIdOfRecipesByText[word].push(i)
+            }
+        }
+
+    }
+    return listIdOfRecipesByText;
 }
 
 /**
@@ -97,7 +179,7 @@ export let activeTag = {
     ingredients: [],
     text: [],
     title: []
-}
+};
 
 /**
  * Gestionnaire de l'affichage des recettes
@@ -108,11 +190,9 @@ export function getRecipes() {
     updateAvailableRecipesByUst();
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
+    initApp();
 
-    console.log(Object.values([...searchValue])[0]);
-    console.log(ingValideRecipes);
-
-    if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0 && [...searchValue].length === 0) return recipes;
+    if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0 && searchValue.length === 0) return recipes;
 
     globalValideRecipes = [];
 
@@ -134,7 +214,7 @@ export function getRecipes() {
             }
         })
     }
-    //Ajout des reettes ustensils
+    //Ajout des recettes ustensils
     if (ustValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = ustValideRecipes;
     if (ustValideRecipes.length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
@@ -142,24 +222,26 @@ export function getRecipes() {
                 return id;
             }
         })
-    }    
+    }
 
-    if([...searchValue].length > 0 && globalValideRecipes.length === 0) globalValideRecipes = [...searchValue][0];
-    if([...searchValue].length > 0 && globalValideRecipes.length > 0){
+    //Ajout des recettes par l'ensemble des filtres possible à la saisir 
+    if ([...searchValue].length > 0 && globalValideRecipes.length === 0) globalValideRecipes = searchValue;
+    if ([...searchValue].length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if([...searchValue][0].includes(id)){
+            if (searchValue.includes(id)) {
                 return id;
             }
         })
     }
 
     newRecipes = [];
+    console.log(globalValideRecipes)
 
     globalValideRecipes.forEach(id => {
         newRecipes.push(recipes[id]);
     })
     return newRecipes;
-}
+};
 
 /**
  * On trouve les id des recettes qui correspondent aux valeurs rentré dans la searchbar
@@ -168,28 +250,27 @@ export function getRecipes() {
  *
  * @return  {Array}         change le contenu du tableau searchValue 
  */
-export function getRecipesByTagBar (value){
-    if(value.length === 0){
-        searchValue = new Set()
+export function getRecipesByTagBar(value) {
+    value = value.toLowerCase();
+    if (value.length < 3) {
+        searchValue = [];
     }
-    if(value.length > 2){
-        if(Object.keys(listIdOfRecipesByUstensils).includes(value)){
-            searchValue = new Set ();
-            searchValue.add(listIdOfRecipesByUstensils[value])
+    else { 
+        isInList(listIdOfRecipesByUstensils, value);
+        isInList(listIdOfRecipesByAppliance, value);
+        isInList(listIdOfRecipesByIngredient, value);
+        isInList(listIdOfRecipesByText, value);
+        isInList(listIdOfRecipesByTitle, value);
+        searchValue= [...new Set(searchValue)];
+    }
+    return searchValue;
+};
 
-            return [...searchValue]
-        }
-        if(Object.keys(listIdOfRecipesByAppliance).includes(value)){
-            searchValue = new Set ();
-            searchValue.add(listIdOfRecipesByAppliance[value])
-
-            return [...searchValue]
-        }
-        if(Object.keys(listIdOfRecipesByIngredient).includes(value)){
-            searchValue = new Set ();
-            searchValue.add(listIdOfRecipesByIngredient[value])
-
-            return [...searchValue]
+function isInList(listRef, element){
+    element = element.toLowerCase();
+    for (const ref of Object.keys(listRef)){
+        if(ref.includes(element.toLowerCase())){
+           searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
         }
     }
 }
@@ -278,13 +359,13 @@ export function makeActiveTag(type, value) {
     if (type === "ustensils") {
         if (indexUst === -1) {
             activeTag.ustensils.push(value.toLowerCase())
-        } 
+        }
     }
 
     if (type === "appareil") {
         if (indexIng === -1) {
             activeTag.appliance.push(value.toLowerCase())
-        } 
+        }
     }
 
     if (type === "ingredients") {
@@ -366,9 +447,9 @@ function updateMatchingList(refList, filterList) {
  *
  * @return  {void}         [return description]
  */
-export function updateActiveTag (type, value){
+export function updateActiveTag(type, value) { //BUG Supprime le resultat mais n'actualise pas les vignettes
     const index = activeTag[type].indexOf(value);
-    if(index !== -1){
+    if (index !== -1) {
         activeTag[type].splice(index, 1);
     }
 }
