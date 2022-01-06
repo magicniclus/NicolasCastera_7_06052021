@@ -57,6 +57,11 @@ body main .filterContainer {
   width: 90%;
   display: flex;
 }
+@media screen and (max-width: 637px) {
+  body main .filterContainer {
+    display: none;
+  }
+}
 body main .filterContainer .filtreButton {
   width: 170px;
   min-width: 170px;
@@ -161,6 +166,13 @@ body main .searchBar input {
   background-color: #E7E7E7;
   font-size: 18px;
   z-index: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+@media screen and (max-width: 950px) {
+  body main .searchBar input {
+    max-width: 70%;
+  }
 }
 body main .searchBar input ::placeholder {
   padding-left: 2em;
@@ -175,28 +187,60 @@ body main .searchBar i {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-body main .vignette__container {
+body main aside {
   width: 90%;
   display: grid;
-  grid-template-columns: repeat(3, 30%);
+  grid-template-columns: repeat(3, 380px);
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 2em;
   border-radius: 5px;
 }
-body main .vignette__container .vignettes {
+@media screen and (max-width: 1300px) {
+  body main aside {
+    grid-template-columns: repeat(2, 380px);
+  }
+}
+@media screen and (max-width: 870px) {
+  body main aside {
+    grid-template-columns: repeat(1, 380px);
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 570px) {
+  body main aside {
+    width: 300px;
+    align-items: center;
+  }
+}
+body main aside .vignette__container__of {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body main aside .vignettes {
   height: 364px;
   width: 380px;
   margin-bottom: 4em;
   border-radius: 5px;
 }
-body main .vignette__container .vignettes .vignette__top {
+@media screen and (max-width: 570px) {
+  body main aside .vignettes {
+    width: 300px;
+  }
+}
+@media screen and (max-width: 400px) {
+  body main aside .vignettes {
+    width: 250px;
+  }
+}
+body main aside .vignettes .vignette__top {
   background-color: #c7bebe;
   height: 45%;
   width: 100%;
   border-radius: 5px 5px 0 0;
 }
-body main .vignette__container .vignettes .vignette__bottom {
+body main aside .vignettes .vignette__bottom {
   height: 55%;
   width: 100%;
   background-color: #e7e7e7;
@@ -205,14 +249,14 @@ body main .vignette__container .vignettes .vignette__bottom {
   flex-direction: column;
   align-items: center;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top {
+body main aside .vignettes .vignette__bottom .vignette__bottom__top {
   height: 30%;
   width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__title {
+body main aside .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__title {
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
@@ -221,37 +265,37 @@ body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__t
   overflow: hidden;
   text-overflow: ellipsis;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__clock {
+body main aside .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__clock {
   font-weight: 500;
   font-style: normal;
   font-size: 18px;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__minute {
+body main aside .vignettes .vignette__bottom .vignette__bottom__top .vignette__bottom__top__time .vignette__bottom__top__time__minute {
   font-weight: 700;
   font-style: normal;
   font-size: 18px;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom {
+body main aside .vignettes .vignette__bottom .vignette__bottom__bottom {
   width: 90%;
   height: 70%;
   display: flex;
   text-overflow: ellipsis;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient {
+body main aside .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient {
   min-width: 50%;
   height: 90%;
   overflow: hidden;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container {
+body main aside .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container {
   text-overflow: ellipsis;
   font-style: normal;
   font-size: 12px;
   font-weight: 400;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container .ingredient {
+body main aside .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__ingredient .ingredient__container .ingredient {
   font-weight: 700;
 }
-body main .vignette__container .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__description {
+body main aside .vignettes .vignette__bottom .vignette__bottom__bottom .vignette__bottom__bottom__description {
   min-width: 50%;
   height: 76%;
   font-weight: 400;

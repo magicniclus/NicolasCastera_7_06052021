@@ -15,12 +15,19 @@
             background-color: #E7E7E7;
             font-size: 18px;
             z-index: 1;
+            white-space: nowrap;
+            text-overflow:ellipsis;
+
+            @media screen and (max-width: 950px) {
+                max-width: 70%;
+            }
 
             ::placeholder {
                 padding-left: 2em;
                 font-style: normal;
                 font-weight: 400;
                 font-size: 18px;
+
             }
         }
         

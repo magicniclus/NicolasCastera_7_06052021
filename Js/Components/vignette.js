@@ -8,7 +8,7 @@ export class Vignette {
      */
     constructor(domTarget, props) {
         this.DOM = document.createElement('article');
-        this.DOM.setAttribute('class', 'vignette__container');
+        this.DOM.setAttribute('class', 'vignette__container__of');
         this.data = props;
         domTarget.appendChild(this.DOM);
         this.render();

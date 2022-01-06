@@ -1,19 +1,47 @@
 @mixin vignette {
         
-    .vignette__container {
+    aside {
         width: 90%;
         display: grid;
-        grid-template-columns: repeat(3, 30%);
+        grid-template-columns: repeat(3, 380px);
         justify-content: space-between;
         flex-wrap: wrap;
         margin-top: 2em;
         border-radius: 5px;
+
+        @media screen and (max-width: 1300px) {
+          grid-template-columns: repeat(2, 380px);
+        }
+
+        @media screen and (max-width: 870px) {
+          grid-template-columns: repeat(1, 380px);
+          justify-content: center;
+        }
+
+        @media screen and (max-width: 570px) {
+          width: 300px;
+          align-items: center;
+        }
     
+        .vignette__container__of {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
         .vignettes {
           height: 364px;
           width: 380px;
           margin-bottom: 4em;
           border-radius: 5px;
+
+          @media screen and (max-width: 570px) {
+            width: 300px;
+          }
+
+          @media screen and (max-width: 400px) {
+            width: 250px;
+          }
     
           .vignette__top {
             background-color: #c7bebe;

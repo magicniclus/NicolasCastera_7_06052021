@@ -28,7 +28,7 @@ export class FiltreButton {
 
     /**
      * [addInput description]
-     *é
+     *
      * @param   {HTMLElement}  parent  [parent description]
      *
      */
