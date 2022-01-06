@@ -83,6 +83,9 @@ body main .filterContainer .filtreButton .filtreBoutton__filterTop input {
   font-style: normal;
   font-size: 18px;
 }
+body main .filterContainer .filtreButton .filtreBoutton__filterTop input::placeholder {
+  color: white;
+}
 body main .filterContainer .filtreButton .filtreBoutton__filterTop .filtreButton__Arrow i {
   color: white;
   font-size: 18px;

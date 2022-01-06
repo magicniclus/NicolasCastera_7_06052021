@@ -127,24 +127,6 @@ export function initIdTitle() {
     return listIdOfRecipesByTitle;
 }
 
-function initApp() {
-    const list = {}
-    let word;
-    let descriptionName;
-    for (let i = 0, size = recipes.length; i < size; i++){
-        descriptionName = recipes[i].description.toLowerCase();
-        let newValue = descriptionName.split(" ");
-        for(let ii = 0, size=newValue.length; ii < size -1; ii++){
-            for(let iii =3, size = newValue[ii].length; iii < size +1; iii++){
-                word = newValue[ii].slice(0, iii);
-                if (list[word] === undefined) list[word] = [];
-                list[word].push(i)
-            }
-        }
-
-    }
-}
-
 /**
 * Retourne une clé valeur pour l'ensemble des id des descriptions
 *
@@ -190,7 +172,6 @@ export function getRecipes() {
     updateAvailableRecipesByUst();
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
-    initApp();
 
     if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0 && searchValue.length === 0) return recipes;
 
