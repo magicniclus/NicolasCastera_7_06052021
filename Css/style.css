@@ -30,6 +30,7 @@ body main {
 body main .tagBar {
   width: 90%;
   display: flex;
+  justify-content: start;
 }
 body main .tagBar div {
   margin-right: 1em;

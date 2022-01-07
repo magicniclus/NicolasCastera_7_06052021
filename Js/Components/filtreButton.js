@@ -5,15 +5,19 @@ export class FiltreButton {
     constructor(domTarget, callback, title, phrasing, callBackTaget) {
         this.tableHash = [];
         this.title = title;
-        this.change = false;
         this.DOM = document.createElement('div');
         this.DOM.classList.add('filtreButton');
         this.DOM.classList.add(title);
         this.phrasing = phrasing;
         this.callback = callback;
         this.callBackTarget = callBackTaget;
+        this.input = document.createElement('input');
         domTarget.appendChild(this.DOM)
         this.clickValue = false;
+        this.inputValue = null;
+        this.tagContainer = document.createElement("div");
+        this.tagContainer.setAttribute('class', 'tagContainer');
+        this.tagContainer.style.cursor = 'pointer';
         this.render();
     }
 
@@ -24,6 +28,10 @@ export class FiltreButton {
         this.DOM.appendChild(this.filterTop);
         this.addInput(this.filterTop);
         this.addArrow(this.filterTop);
+        this.DOM.appendChild(this.tagContainer);
+        if (this.clickValue) {
+            this.addTag();
+        }
     }
 
     /**
@@ -33,27 +41,22 @@ export class FiltreButton {
      *
      */
     addInput(parent) {
-        const input = document.createElement('input');
-        input.setAttribute('type', "text");
-        input.setAttribute("id", this.title);
-        input.setAttribute("name", this.title);
-        input.setAttribute('placeholder', this.clickValue ? this.phrasing : this.title);
-        parent.appendChild(input);
-
-        /**
-         * Affichage des tag au click sur l'input
-         *
-         * @param   {Event}  e  [e description]
-         *
-         * @return  {boolean}     [return description]
-         */
-        input.oninput = ((e) => { 
+        this.input.setAttribute('type', "text");
+        this.input.setAttribute("id", this.title);
+        this.input.setAttribute("name", this.title);
+        this.input.setAttribute('placeholder', this.clickValue ? this.phrasing : this.title);
+        if (this.inputValue!== null) this.input.setAttribute("value", this.inputValue);
+        console.log(this.input);
+        parent.appendChild(this.input);
+        this.input.oninput = ((e) => { 
             let target = e.target.value;
             if (target.length > 2) {
                 this.initHashTable(this.listElement, target);
+                this.inputValue = target;
             } else {
                 this.tableHash = [];
             }
+            this.addTag();
         })
     }
 
@@ -97,49 +100,53 @@ export class FiltreButton {
         arrow__container.innerHTML += `<i class="fas fa-chevron-${this.clickValue == false ? 'down' : 'up'}"></i>`;
         arrow__container.style.cursor = 'pointer';
         parent.appendChild(arrow__container)
+        /**
+         * 
+         *
+         * @param   {event}  e  [e description]
+         *
+         * @return  {void}     [return description]
+         */
         arrow__container.onclick = (e) => {
             e.stopPropagation();
             this.clickValue = !this.clickValue;
             if (this.clickValue) {
-                this.render();
-                this.addTag(this.DOM, this.callback);
                 this.DOM.classList.add('click');
             } else {
                 this.DOM.classList.remove('click');
-                this.render();
+                this.tagContainer.innerText="";
             };
+            this.render();
         }
     }
 
 
     /**
      * [addTag description]
-     *
-     * @param   {HTMLElement}  parent    [parent description]
-     * @param   {Function}  callback  [callback description]
      * 
      * @returns {void}
-     *
      */
-    addTag(parent, callback) {
-        const tagContainer = document.createElement("div");
-        tagContainer.setAttribute('class', 'tagContainer');
-        tagContainer.style.cursor = 'pointer';
+    addTag() {
         let list = this.tableHash.length > 0 ? this.tableHash : this.listElement;
+        this.tagContainer.innerText="";
         list.forEach(element => {
             const tagContainer__tag = document.createElement('span');
             tagContainer__tag.setAttribute('class', 'tagContainer__tag '+ element);
             tagContainer__tag.innerHTML = element;
-            tagContainer.appendChild(tagContainer__tag);
+            this.tagContainer.appendChild(tagContainer__tag);
+            this.tagContainer.style.display='grid';
             tagContainer__tag.onclick = () => {
                 this.clickValue = !this.clickValue;
+                if(this.clickValue === false){
+                    this.tagContainer.style.display='none';
+                    this.input.setAttribute('value', this.title);
+
+                }
                 this.DOM.classList.remove('click');
-                callback(this.title, element);
+                this.callback(this.title, element);
                 this.render();
             }
         });
-
-        parent.appendChild(tagContainer);
     }
 
     /**
