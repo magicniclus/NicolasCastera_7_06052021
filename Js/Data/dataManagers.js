@@ -255,6 +255,7 @@ function isInList(listRef, element){
             searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
         }
     })
+    console.log('ok');
 }
 
 /**
