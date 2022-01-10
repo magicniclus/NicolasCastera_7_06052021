@@ -257,6 +257,7 @@ function isInList(listRef, element){
     })
 }
 
+/*********Amelioration
 /**
  * Création de la list des ustensils qui correspond à l'ensemble des ustensils de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les ustensils de newRecipes
@@ -281,6 +282,7 @@ export function updateUstensilsList() {
     return [...ustensilList];
 }
 
+/*********Amelioration
 /**
  * Création de la list des appareils qui correspond à l'ensemble des appareils de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les appareils de newRecipes
@@ -301,6 +303,7 @@ export function updateApplianceList() {
     return [...applianceList];
 }
 
+/*********Amelioration
 /**
  * Création de la list des ingredients qui correspond à l'ensemble des ingredients de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les ingrédients de newRecipes
