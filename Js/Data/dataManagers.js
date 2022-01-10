@@ -424,6 +424,7 @@ function updateMatchingList(refList, filterList) {
     return newList;
 }
 
+//*********Passage du switch a des condition if else 
 /**
  * Supression des l'élément dans activeTag
  *
@@ -438,14 +439,7 @@ export function updateActiveTag(type, value) { //BUG Supprime le resultat mais n
     if (index !== -1) {
         activeTag[type].splice(index, 1);
     }
-    switch(type){
-        case "ingredients" : ingValideRecipes = []; 
-        break;
-
-        case "appliance" : appValideRecipes = [];
-        break;
-
-        case "ustensils" : ustValideRecipes = [];
-        break;
-    }
+    if(type = 'ingredients') ingValideRecipes = [];
+    else if(type = 'appliance') appValideRecipes= [];
+    else ustValideRecipes = [];
 }
