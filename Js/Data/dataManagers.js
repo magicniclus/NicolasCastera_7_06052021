@@ -177,10 +177,8 @@ export function getRecipes() {
 
     globalValideRecipes = [];
 
-    //Ajout des recettes ingredients
-    console.log("globalRecipes 0", globalValideRecipes, ingValideRecipes)
+    //Ajout des recettes ingredients 
     if (globalValideRecipes.length === 0 && globalValideRecipes.length === 0) globalValideRecipes = ingValideRecipes;
-    console.log("globalRecipes 1", globalValideRecipes)
     if (globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
             if (ingValideRecipes.includes(id)) {
@@ -188,7 +186,6 @@ export function getRecipes() {
             }
         })
     };
-    console.log("globalRecipes 2", globalValideRecipes)
     //Ajout des recettes appareils
     if (appValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = appValideRecipes;
     if (appValideRecipes.length > 0 && globalValideRecipes.length > 0) {
@@ -220,7 +217,6 @@ export function getRecipes() {
 
     newRecipes = [];
     globalValideRecipes = [...new Set(globalValideRecipes)];
-    console.log(globalValideRecipes)
 
     globalValideRecipes.forEach(id => {
         newRecipes.push(recipes[id]);
@@ -433,7 +429,6 @@ function updateMatchingList(refList, filterList) {
  * @return  {void}         [return description]
  */
 export function updateActiveTag(type, value) { //BUG Supprime le resultat mais n'actualise pas les vignettes
-    console.log(type);
     const index = activeTag[type].indexOf(value);
     if (index !== -1) {
         activeTag[type].splice(index, 1);

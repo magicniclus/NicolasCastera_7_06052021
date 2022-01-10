@@ -57,6 +57,7 @@ body main .filterContainer {
   margin-top: 1em;
   width: 90%;
   display: flex;
+  justify-content: start;
 }
 @media screen and (max-width: 637px) {
   body main .filterContainer {
@@ -67,7 +68,7 @@ body main .filterContainer .filtreButton {
   width: 170px;
   min-width: 170px;
   min-height: 69px;
-  height: 69px;
+  height: 5em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,7 +113,6 @@ body main .filterContainer .click .filtreBoutton__filterTop input::placeholder {
 body main .filterContainer .click .tagContainer {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 80%;
   width: 95%;
   display: grid;
   grid-template-columns: repeat(3, 25%);

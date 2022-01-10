@@ -46,13 +46,12 @@ export class FiltreButton {
         this.input.setAttribute("name", this.title);
         this.input.setAttribute('placeholder', this.clickValue ? this.phrasing : this.title);
         if (this.inputValue!== null) this.input.setAttribute("value", this.inputValue);
-        console.log(this.input);
         parent.appendChild(this.input);
         this.input.oninput = ((e) => { 
-            let target = e.target.value;
-            if (target.length > 2) {
-                this.initHashTable(this.listElement, target);
-                this.inputValue = target;
+            this.target = e.target.value;
+            if (this.target.length > 2) {
+                this.initHashTable(this.listElement, this.target);
+                this.inputValue = this.target;
             } else {
                 this.tableHash = [];
             }
@@ -78,7 +77,6 @@ export class FiltreButton {
                 for(let ii = 0, size = el.length; ii<size; ii++){
                     word = el.slice(0, ii);
                     if(word === value){
-                        console.log(array[i]);
                         if(this.tableHash.indexOf(array[i]) === -1) {
                             this.tableHash.push(array[i])
                         };
@@ -140,7 +138,6 @@ export class FiltreButton {
                 if(this.clickValue === false){
                     this.tagContainer.style.display='none';
                     this.input.setAttribute('value', this.title);
-
                 }
                 this.DOM.classList.remove('click');
                 this.callback(this.title, element);
