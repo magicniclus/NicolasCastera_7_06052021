@@ -65,7 +65,6 @@ export function initIdUstensils() {
             }
         })
     }
-    return listIdOfRecipesByUstensils;
 }
 
 /**
@@ -104,7 +103,6 @@ export function initIdIngredient() {
             }
         });
     };
-    return listIdOfRecipesByIngredient;
 }
 
 /**
@@ -124,7 +122,6 @@ export function initIdTitle() {
             list[word].push(i)
         }
     }
-    return listIdOfRecipesByTitle;
 }
 
 /**
@@ -147,7 +144,6 @@ export function initIdText() {
         }
 
     }
-    return listIdOfRecipesByText;
 }
 
 /**
@@ -320,6 +316,7 @@ export function updateIngredientList() {
     return [...ingredientList];
 }
 
+/*********Changement du if en switch
 /**
  * Ajout des tag dans activeTag au click dans une valeur d'un des boutons en fonction de leurs type
  *
@@ -333,22 +330,28 @@ export function makeActiveTag(type, value) {
     const indexApp = activeTag.appliance.indexOf(value);
     const indexIng = activeTag.ingredients.indexOf(value);
 
-    if (type === "ustensils") {
-        if (indexUst === -1) {
-            activeTag.ustensils.push(value.toLowerCase())
-        }
-    }
+    switch (type) {
+        case "ingredients": 
+            if (indexIng === -1) {
+                activeTag.ingredients.push(value.toLowerCase())
+            }
+            break;
+    
+        case "appareil":
+            if (indexApp === -1) {
+                activeTag.appliance.push(value.toLowerCase())
+            }
+            break;
+         
+        case "ustensils":
+            if (indexUst === -1) {
+                activeTag.ustensils.push(value.toLowerCase())
+            }
+            break;
 
-    if (type === "appareil") {
-        if (indexIng === -1) {
-            activeTag.appliance.push(value.toLowerCase())
-        }
-    }
-
-    if (type === "ingredients") {
-        if (indexIng === -1) {
-            activeTag.ingredients.push(value.toLowerCase())
-        }
+        default:
+            alert ("Probleme d'affiche'")
+            break;
     }
 }
 
