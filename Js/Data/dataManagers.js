@@ -181,27 +181,21 @@ export function getRecipes() {
     if (globalValideRecipes.length === 0 && globalValideRecipes.length === 0) globalValideRecipes = ingValideRecipes;
     if (globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (ingValideRecipes.includes(id)) {
-                return id;
-            }
+            if (ingValideRecipes.includes(id)) return id;
         })
     };
     //Ajout des recettes appareils
     if (appValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = appValideRecipes;
     if (appValideRecipes.length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (appValideRecipes.includes(id)) {
-                return id;
-            }
+            if (appValideRecipes.includes(id)) return id;
         })
     }
     //Ajout des recettes ustensils
     if (ustValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = ustValideRecipes;
     if (ustValideRecipes.length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (ustValideRecipes.includes(id)) {
-                return id;
-            }
+            if (ustValideRecipes.includes(id)) return id;
         })
     }
 
@@ -209,9 +203,7 @@ export function getRecipes() {
     if ([...searchValue].length > 0 && globalValideRecipes.length === 0) globalValideRecipes = searchValue;
     if ([...searchValue].length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (searchValue.includes(id)) {
-                return id;
-            }
+            if (searchValue.includes(id)) return id;
         })
     }
 
