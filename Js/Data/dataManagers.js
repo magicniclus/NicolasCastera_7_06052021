@@ -1,5 +1,7 @@
 import { recipes } from "./data.js";
 
+console.log('ok');
+
 /**
  * Création d'un tableau d'objet contenant des clés valeur 
  * de chaque recette par les id générés 
