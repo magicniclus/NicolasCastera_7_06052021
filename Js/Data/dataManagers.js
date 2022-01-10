@@ -1,7 +1,5 @@
 import { recipes } from "./data.js";
 
-console.log('ok');
-
 /**
  * Création d'un tableau d'objet contenant des clés valeur 
  * de chaque recette par les id générés 
@@ -180,9 +178,7 @@ export function getRecipes() {
     globalValideRecipes = [];
 
     //Ajout des recettes ingredients
-    console.log("globalRecipes 0", globalValideRecipes, ingValideRecipes)
     if (globalValideRecipes.length === 0 && globalValideRecipes.length === 0) globalValideRecipes = ingValideRecipes;
-    console.log("globalRecipes 1", globalValideRecipes)
     if (globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
             if (ingValideRecipes.includes(id)) {
@@ -190,7 +186,6 @@ export function getRecipes() {
             }
         })
     };
-    console.log("globalRecipes 2", globalValideRecipes)
     //Ajout des recettes appareils
     if (appValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = appValideRecipes;
     if (appValideRecipes.length > 0 && globalValideRecipes.length > 0) {
@@ -222,7 +217,6 @@ export function getRecipes() {
 
     newRecipes = [];
     globalValideRecipes = [...new Set(globalValideRecipes)];
-    console.log(globalValideRecipes)
 
     globalValideRecipes.forEach(id => {
         newRecipes.push(recipes[id]);

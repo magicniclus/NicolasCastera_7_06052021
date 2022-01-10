@@ -46,7 +46,6 @@ export class FiltreButton {
         this.input.setAttribute("name", this.title);
         this.input.setAttribute('placeholder', this.clickValue ? this.phrasing : this.title);
         if (this.inputValue!== null) this.input.setAttribute("value", this.inputValue);
-        console.log(this.input);
         parent.appendChild(this.input);
         this.input.oninput = ((e) => { 
             let target = e.target.value;
