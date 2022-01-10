@@ -256,17 +256,11 @@ export function getRecipesByTagBar(value) {
 // Ameliroration
 function isInList(listRef, element){
     element = element.toLowerCase();
-    // for (const ref of Object.keys(listRef)){
-    //     if(ref.includes(element.toLowerCase())){
-    //        searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
-    //     }
-    // }
-
-    Object.keys(listRef).forEach(ref => {
+    for (const ref of Object.keys(listRef)){
         if(ref.includes(element.toLowerCase())){
-            searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
+           searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
         }
-    })
+    }
 }
 
 /**
