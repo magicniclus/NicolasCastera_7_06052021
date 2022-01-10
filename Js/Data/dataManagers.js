@@ -405,6 +405,7 @@ export function updateAvailableRecipesByIng() {
     }
 }
 
+//**********Amelioration
 /**
  * Filtre un tableau par rapport aux éléments d'un autre tableau 
  *
@@ -415,9 +416,9 @@ export function updateAvailableRecipesByIng() {
  */
 function updateMatchingList(refList, filterList) {
     const newList = [];
-    for (const id of refList) {
+    refList.forEach(id => {
         if (filterList.indexOf(id) !== -1) newList.push(id)
-    }
+    })
     return newList;
 }
 
