@@ -257,6 +257,7 @@ function isInList(listRef, element){
     }
 }
 
+//********Changement des forEach en for of
 /**
  * Création de la list des ustensils qui correspond à l'ensemble des ustensils de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les ustensils de newRecipes
@@ -266,21 +267,22 @@ function isInList(listRef, element){
 export function updateUstensilsList() {
     ustensilList = new Set();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
-        recipes.forEach(rec => {
-            rec.ustensils.forEach(ust => {
+        for(const rec of recipes){
+            for(const ust of rec.ustensils){
                 ustensilList.add(ust.toLowerCase());
-            })
-        })
+            }
+        }
     } else {
-        newRecipes.forEach(rec => {
-            rec.ustensils.forEach(ust => {
+        for(const rec of newRecipes){
+            for(const ust of rec.ustensils){
                 ustensilList.add(ust.toLowerCase());
-            })
-        })
+            }
+        }
     }
     return [...ustensilList];
 }
 
+//********Changement des forEach en for of
 /**
  * Création de la list des appareils qui correspond à l'ensemble des appareils de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les appareils de newRecipes
@@ -290,17 +292,18 @@ export function updateUstensilsList() {
 export function updateApplianceList() {
     applianceList = new Set();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
-        recipes.forEach(rec => {
-            applianceList.add(rec.appliance.toLowerCase());
-        })
+        for(const rec of recipes){
+            applianceList.add(rec.appliance);
+        }
     } else {
-        newRecipes.forEach(rec => {
-            applianceList.add(rec.appliance.toLowerCase());
-        })
+        for(const rec of newRecipes){
+            applianceList.add(rec.appliance);
+        }
     }
     return [...applianceList];
 }
 
+//********Changement des forEach en for of
 /**
  * Création de la list des ingredients qui correspond à l'ensemble des ingredients de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les ingrédients de newRecipes
@@ -310,17 +313,17 @@ export function updateApplianceList() {
 export function updateIngredientList() {
     ingredientList = new Set();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
-        recipes.forEach(rec => {
-            rec.ingredients.forEach(ing => {
+        for(const rec of recipes){
+            for(const ing of rec.ingredients){
                 ingredientList.add(ing.ingredient.toLowerCase())
-            })
-        })
+            }
+        }
     } else {
-        newRecipes.forEach(rec => {
-            rec.ingredients.forEach(ing => {
+        for(const rec of newRecipes){
+            for(const ing of rec.ingredients){
                 ingredientList.add(ing.ingredient.toLowerCase())
-            })
-        })
+            }
+        }
     }
     return [...ingredientList];
 }
