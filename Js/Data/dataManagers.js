@@ -253,13 +253,20 @@ export function getRecipesByTagBar(value) {
     return searchValue;
 };
 
+// Ameliroration
 function isInList(listRef, element){
     element = element.toLowerCase();
-    for (const ref of Object.keys(listRef)){
+    // for (const ref of Object.keys(listRef)){
+    //     if(ref.includes(element.toLowerCase())){
+    //        searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
+    //     }
+    // }
+
+    Object.keys(listRef).forEach(ref => {
         if(ref.includes(element.toLowerCase())){
-           searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
+            searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
         }
-    }
+    })
 }
 
 /**
