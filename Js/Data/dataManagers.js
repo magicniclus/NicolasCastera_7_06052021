@@ -420,6 +420,7 @@ function updateMatchingList(refList, filterList) {
     return newList;
 }
 
+/*********Amelioration du if en switch
 /**
  * Supression des l'élément dans activeTag
  *
