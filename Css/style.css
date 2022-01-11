@@ -89,6 +89,14 @@ body main .filterContainer .filtreButton .filtreBoutton__filterTop input {
   font-style: normal;
   font-size: 18px;
 }
+body main .filterContainer .filtreButton .filtreBoutton__filterTop span {
+  width: 60%;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+}
 body main .filterContainer .filtreButton .filtreBoutton__filterTop input::placeholder {
   color: white;
 }
