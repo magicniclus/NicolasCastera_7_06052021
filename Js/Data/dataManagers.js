@@ -1,5 +1,14 @@
 import { recipes } from "./data.js";
 
+
+
+export let getValideEntrie;
+let getValideUst;
+let getValideApp;
+let getValideIng;
+let getValideText;
+let getValideTitle;
+
 /**
  * Création d'un tableau d'objet contenant des clés valeur 
  * de chaque recette par les id générés 
@@ -196,7 +205,9 @@ export function getRecipes() {
     }
 
     //Ajout des recettes par l'ensemble des filtres possible à la saisir 
-    if ([...searchValue].length > 0 && globalValideRecipes.length === 0) globalValideRecipes = searchValue;
+    if ([...searchValue].length > 0 && globalValideRecipes.length === 0) {
+        globalValideRecipes = searchValue;
+    }
     if ([...searchValue].length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
             if (searchValue.includes(id)) return id;
@@ -222,27 +233,37 @@ export function getRecipes() {
 export function getRecipesByTagBar(value) {
     value = value.toLowerCase();
     if (value.length < 3) {
+        getValideEntrie = true;
         searchValue = [];
     }
     else { 
-        isInList(listIdOfRecipesByUstensils, value);
-        isInList(listIdOfRecipesByAppliance, value);
-        isInList(listIdOfRecipesByIngredient, value);
-        isInList(listIdOfRecipesByText, value);
-        isInList(listIdOfRecipesByTitle, value);
+        let getValideUst = isInList(listIdOfRecipesByUstensils, value);
+        let getValideApp = isInList(listIdOfRecipesByAppliance, value);
+        let getValideIng = isInList(listIdOfRecipesByIngredient, value);
+        let getValideText = isInList(listIdOfRecipesByText, value);
+        let getValideTitle = isInList(listIdOfRecipesByTitle, value);
         searchValue= [...new Set(searchValue)];
+    
+        if(!getValideUst && !getValideApp && !getValideIng && !getValideText && !getValideTitle){
+            getValideEntrie = false;
+        } else getValideEntrie = true;
     }
-    return searchValue;
 };
 
 //************ Amelioration
 function isInList(listRef, element){
+    let bool = false
     element = element.toLowerCase();
     Object.keys(listRef).forEach(ref => {
+        if(ref.includes(element.toLowerCase())){
+            bool = true;
+        }
+        
         if(ref.includes(element.toLowerCase())){
             searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
         }
     })
+    return bool;
 }
 
 /*********Amelioration
