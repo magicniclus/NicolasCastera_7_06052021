@@ -45,14 +45,23 @@ export class FiltreButton {
         this.input.setAttribute('type', "text");
         this.input.setAttribute("id", this.title);
         this.input.setAttribute("name", this.title);
-        this.input.setAttribute('placeholder', this.clickValue ? this.phrasing : this.title);
+        this.input.setAttribute('placeholder', this.phrasing);
+        if(!this.clickValue) this.input.style.display='none';
+        else this.input.style.display='block';
+
+        this.inputTilte.innerHTML = this.title;
+        this.inputTilte.setAttribute('id', this.title)
+        parent.appendChild(this.inputTilte);
+        if(!this.clickValue) this.inputTilte.style.display='block';
+        else this.inputTilte.style.display='none';
+
         if (this.inputValue!== null) this.input.setAttribute("value", this.inputValue);
         parent.appendChild(this.input);
         this.input.oninput = ((e) => { 
-            let target = e.target.value;
-            if (target.length > 2) {
-                this.initHashTable(this.listElement, target);
-                this.inputValue = target;
+            this.target = e.target.value;
+            if (this.target.length > 2) {
+                this.initHashTable(this.listElement, this.target);
+                this.inputValue = this.target;
             } else {
                 this.tableHash = [];
             }
@@ -78,7 +87,6 @@ export class FiltreButton {
                 for(let ii = 0, size = el.length; ii<size; ii++){
                     word = el.slice(0, ii);
                     if(word === value){
-                        console.log(array[i]);
                         if(this.tableHash.indexOf(array[i]) === -1) {
                             this.tableHash.push(array[i])
                         };
@@ -139,8 +147,6 @@ export class FiltreButton {
                 this.clickValue = !this.clickValue;
                 if(this.clickValue === false){
                     this.tagContainer.style.display='none';
-                    this.input.setAttribute('value', this.title);
-
                 }
                 this.DOM.classList.remove('click');
                 this.callback(this.title, element);
