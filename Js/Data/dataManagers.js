@@ -1,5 +1,12 @@
 import { recipes } from "./data.js";
 
+export let getValideEntrie;
+let getValideUst;
+let getValideApp;
+let getValideIng;
+let getValideText;
+let getValideTitle;
+
 /**
  * Création d'un tableau d'objet contenant des clés valeur 
  * de chaque recette par les id générés 
