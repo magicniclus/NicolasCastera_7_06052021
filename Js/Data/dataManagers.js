@@ -3,11 +3,6 @@ import { recipes } from "./data.js";
 
 
 export let getValideEntrie;
-let getValideUst;
-let getValideApp;
-let getValideIng;
-let getValideText;
-let getValideTitle;
 
 /**
  * Création d'un tableau d'objet contenant des clés valeur 
@@ -371,7 +366,7 @@ export function makeActiveTag(type, value) {
             break;
 
         default:
-            alert ("Probleme d'affiche'")
+            alert ("Probleme d'affichage")
             break;
     }
 }
@@ -464,5 +459,9 @@ export function updateActiveTag(type, value) { //BUG Supprime le resultat mais n
 
         case "ustensils" : ustValideRecipes = [];
         break;
+
+        default: 
+            console.log('err');
+        break;    
     }
 }

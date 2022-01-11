@@ -12,6 +12,7 @@ export class FiltreButton {
         this.callback = callback;
         this.callBackTarget = callBackTaget;
         this.input = document.createElement('input');
+        this.inputTilte = document.createElement('span');
         domTarget.appendChild(this.DOM)
         this.clickValue = false;
         this.inputValue = null;
@@ -44,7 +45,16 @@ export class FiltreButton {
         this.input.setAttribute('type', "text");
         this.input.setAttribute("id", this.title);
         this.input.setAttribute("name", this.title);
-        this.input.setAttribute('placeholder', this.clickValue ? this.phrasing : this.title);
+        this.input.setAttribute('placeholder', this.phrasing);
+        if(!this.clickValue) this.input.style.display='none';
+        else this.input.style.display='block';
+
+        this.inputTilte.innerHTML = this.title;
+        this.inputTilte.setAttribute('id', this.title)
+        parent.appendChild(this.inputTilte);
+        if(!this.clickValue) this.inputTilte.style.display='block';
+        else this.inputTilte.style.display='none';
+
         if (this.inputValue!== null) this.input.setAttribute("value", this.inputValue);
         parent.appendChild(this.input);
         this.input.oninput = ((e) => { 
@@ -137,7 +147,6 @@ export class FiltreButton {
                 this.clickValue = !this.clickValue;
                 if(this.clickValue === false){
                     this.tagContainer.style.display='none';
-                    this.input.setAttribute('value', this.title);
                 }
                 this.DOM.classList.remove('click');
                 this.callback(this.title, element);
