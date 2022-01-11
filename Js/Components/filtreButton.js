@@ -12,6 +12,7 @@ export class FiltreButton {
         this.callback = callback;
         this.callBackTarget = callBackTaget;
         this.input = document.createElement('input');
+        this.inputTilte = document.createElement('span');
         domTarget.appendChild(this.DOM)
         this.clickValue = false;
         this.inputValue = null;
