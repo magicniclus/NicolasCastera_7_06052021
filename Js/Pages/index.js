@@ -1,5 +1,5 @@
 // Gestionnaire d'affichage
-import {activeTag, getRecipes, makeActiveTag, updateActiveTag, getRecipesByTagBar} from "../Data/dataManagers.js"
+import {activeTag, getRecipes, makeActiveTag, updateActiveTag, getRecipesByTagBar, getValideEntrie} from "../Data/dataManagers.js"
 import { Vignette } from "../Components/vignette.js";
 import { FiltreButton } from "../Components/filtreButton.js";
 import { AddTag } from "../Components/addTag.js";
@@ -63,9 +63,13 @@ function addBtnFilter() {
  */
 function updateMain() {
     vignetteContainer.innerHTML = '';
-    getRecipes().forEach(recipes => {
-        new Vignette(vignetteContainer, recipes)
-    })
+    if(getValideEntrie === false){
+        vignetteContainer.innerHTML = 'Aucune recette ne correspond à votre recherche...';
+    } else{
+        getRecipes().forEach(recipes => {
+            new Vignette(vignetteContainer, recipes)
+        })
+    }
 }
 
 /**
