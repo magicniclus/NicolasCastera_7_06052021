@@ -231,30 +231,40 @@ export function getRecipes() {
  *
  * @return  {Array}         change le contenu du tableau searchValue 
  */
-export function getRecipesByTagBar(value) {
+ export function getRecipesByTagBar(value) {
     value = value.toLowerCase();
     if (value.length < 3) {
+        getValideEntrie = true;
         searchValue = [];
     }
     else { 
-        isInList(listIdOfRecipesByUstensils, value);
-        isInList(listIdOfRecipesByAppliance, value);
-        isInList(listIdOfRecipesByIngredient, value);
-        isInList(listIdOfRecipesByText, value);
-        isInList(listIdOfRecipesByTitle, value);
+        let getValideUst = isInList(listIdOfRecipesByUstensils, value);
+        let getValideApp = isInList(listIdOfRecipesByAppliance, value);
+        let getValideIng = isInList(listIdOfRecipesByIngredient, value);
+        let getValideText = isInList(listIdOfRecipesByText, value);
+        let getValideTitle = isInList(listIdOfRecipesByTitle, value);
         searchValue= [...new Set(searchValue)];
+    
+        if(!getValideUst && !getValideApp && !getValideIng && !getValideText && !getValideTitle){
+            getValideEntrie = false;
+        } else getValideEntrie = true;
     }
-    return searchValue;
 };
 
-// Ameliroration
+//************ Amelioration
 function isInList(listRef, element){
+    let bool = false
     element = element.toLowerCase();
-    for (const ref of Object.keys(listRef)){
+    Object.keys(listRef).forEach(ref => {
         if(ref.includes(element.toLowerCase())){
-           searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
+            bool = true;
         }
-    }
+        
+        if(ref.includes(element.toLowerCase())){
+            searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
+        }
+    })
+    return bool;
 }
 
 //********Changement des forEach en for of
