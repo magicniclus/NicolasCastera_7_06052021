@@ -10,7 +10,6 @@ export class FiltreButton {
         this.DOM.classList.add(title);
         this.phrasing = phrasing;
         this.callback = callback;
-        this.callBackTarget = callBackTaget;
         this.input = document.createElement('input');
         this.inputTilte = document.createElement('span');
         domTarget.appendChild(this.DOM)
@@ -151,6 +150,8 @@ export class FiltreButton {
                 this.DOM.classList.remove('click');
                 this.callback(this.title, element);
                 this.render();
+                this.input.value = '';
+                this.tableHash = [];
             }
         });
     }
