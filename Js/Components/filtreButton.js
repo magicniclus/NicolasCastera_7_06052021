@@ -27,6 +27,7 @@ export class FiltreButton {
         this.filterTop = document.createElement('div');
         this.filterTop.setAttribute('class', 'filtreBoutton__filterTop');
         this.DOM.appendChild(this.filterTop);
+        this.input.value = "";
         this.addInput(this.filterTop);
         this.addArrow(this.filterTop);
         this.DOM.appendChild(this.tagContainer);
