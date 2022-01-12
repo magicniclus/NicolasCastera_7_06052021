@@ -1,16 +1,13 @@
 import { recipes } from "./data.js";
 
 export let getValideEntrie;
-let getValideUst;
-let getValideApp;
-let getValideIng;
-let getValideText;
-let getValideTitle;
 
 let tableHash = {
     'ust' : [],
     'app' : [], 
-    'ing' : []
+    'ing' : [], 
+    'text' : [],
+    'title' : []
 };
 
 /**
@@ -54,71 +51,7 @@ let searchValue = [];
  */
 let newRecipes = [];
 
-initIdUstensils();
-initIdAppliance();
-initIdIngredient();
-initIdTitle();
-initIdText();
-
-/**
- * Retourne une clé valeur pour l'ensemble des id des ustensils 
- *
- * @return  {Object}  Renvoi un objet 
- */
-export function initIdUstensils() {
-    let word;
-    let ustensilName;
-    for (let i = 0, size = recipes.length; i < size; i++){
-        recipes[i].ustensils.forEach(ust => {
-            ustensilName = ust.toLowerCase();
-            for( let ii=3, size=ustensilName.length; ii<size +1; ii++){
-                word = ustensilName.slice(0,ii);
-                if (listIdOfRecipesByUstensils[word] === undefined) listIdOfRecipesByUstensils[word] = [];
-                listIdOfRecipesByUstensils[word].push(i)
-            }
-        })
-    }
-    return listIdOfRecipesByUstensils;
-}
-
-/**
- * Retourne une clé valeur pour l'ensemble des id des appareils 
- *
- * @return  {Object}  Renvoi un objet 
- */
-export function initIdAppliance() {
-    let word;
-    let applianceName;
-    for (let i = 0, size = recipes.length; i < size; i++){
-        applianceName = recipes[i].appliance.toLowerCase();
-        for( let ii=3, size=applianceName.length; ii<size +1; ii++){
-            word = applianceName.slice(0,ii);
-            if (listIdOfRecipesByAppliance[word] === undefined) listIdOfRecipesByAppliance[word] = [];
-            listIdOfRecipesByAppliance[word].push(i)
-        }
-    }
-}
-
-/**
-* Retourne une clé valeur pour l'ensemble des id des ingredient 
-*
-* @return  {Object}  Renvoi un objet 
-*/
-export function initIdIngredient() {
-    let word;
-    let ingredientName;
-    for (let i = 0, size = recipes.length; i < size; i++) {
-        recipes[i].ingredients.forEach(ingredient => {
-            ingredientName = ingredient.ingredient.toLowerCase();
-            for( let ii=3, size=ingredientName.length; ii<size +1; ii++){
-                word = ingredientName.slice(0,ii);
-                if (listIdOfRecipesByIngredient[word] === undefined) listIdOfRecipesByIngredient[word] = [];
-                listIdOfRecipesByIngredient[word].push(i)
-            }
-        });
-    };
-    return listIdOfRecipesByIngredient;
-}
+// initIdTitle();
 
 /**
 * Retourne une clé valeur pour l'ensemble des id des titre 
@@ -126,18 +59,20 @@ export function initIdIngredient() {
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdTitle() {
-    const list = {}
+    tableHash.title = []
+    console.log(tableHash.title);
     let word;
     let listIdOfRecipesByTitle;
     for (let i = 0, size = recipes.length; i < size; i++){
         listIdOfRecipesByTitle = recipes[i].name.toLowerCase();
         for( let ii=3, size=listIdOfRecipesByTitle.length; ii<size +1; ii++){
             word = listIdOfRecipesByTitle.slice(0,ii);
-            if (list[word] === undefined) list[word] = [];
-            list[word].push(i)
+            if (tableHash.title[word] === undefined) tableHash.title[word] = [];
+            tableHash.title[word].push(i)
         }
     }
-    return listIdOfRecipesByTitle;
+    console.log(tableHash.title);
+    return tableHash.title;
 }
 
 /**
@@ -182,15 +117,15 @@ export let activeTag = {
  * @return  {Object}  Recette filtrées
  */
 export function getRecipes() {
-    // updateAvailableRecipesByUst();
-    newUpdateAvailableRecipesByUst();
+    updateAvailableRecipesByUst();
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
     if(activeTag.ustensils.length === 0){
         ustValideRecipes = [];
     }
-
-    console.log(ustValideRecipes);
+    if(activeTag.appliance.length === 0){
+        appValideRecipes =[];
+    }
 
     if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0 && searchValue.length === 0) return recipes;
 
@@ -261,7 +196,7 @@ export function getRecipes() {
         let getValideApp = isInList(listIdOfRecipesByAppliance, value);
         let getValideIng = isInList(listIdOfRecipesByIngredient, value);
         let getValideText = isInList(listIdOfRecipesByText, value);
-        let getValideTitle = isInList(listIdOfRecipesByTitle, value);
+        let getValideTitle = isInList(initIdTitle(), value);
         searchValue= [...new Set(searchValue)];
     
         if(!getValideUst && !getValideApp && !getValideIng && !getValideText && !getValideTitle){
@@ -271,8 +206,8 @@ export function getRecipes() {
 };
 
 //************ Amelioration
-function isInList(listRef, element){
-    let bool = false
+function isInList(listRef, element, fnt){
+    let bool = false;
     element = element.toLowerCase();
     Object.keys(listRef).forEach(ref => {
         if(ref.includes(element.toLowerCase())){
@@ -390,23 +325,36 @@ export function makeActiveTag(type, value) {
 }
 
 /**
+ * Filtrage des id des appareils
+ *
+ * @return  {Array}  newList de la fonction updateMatchingList
+ */
+export function updateAvailableRecipesByApp() {
+    //Appareils
+    if (activeTag.appliance.length === 0) return;
+    if (activeTag.appliance.length === 1) {
+        tableHash.app = [];
+        let word;
+        let applianceName;
+        for (let i = 0, size = recipes.length; i < size; i++){
+            applianceName = recipes[i].appliance.toLowerCase();
+            for( let ii=3, size=applianceName.length; ii<size +1; ii++){
+                word = applianceName.slice(0,ii);
+                if (tableHash.app[word] === undefined) tableHash.app[word] = [];
+                tableHash.app[word].push(i)
+            }
+        }
+        appValideRecipes = tableHash.app[activeTag.appliance[0]]
+    }
+}
+
+
+/**
  * Filtrage des id des ustensils
  *
  * @return  {Array}  newList de la fonction updateMatchingList
  */
-// export function updateAvailableRecipesByUst() {
-//     if (activeTag.ustensils.length === 0) return;
-//     if (activeTag.ustensils.length === 1) {
-//         console.log(listIdOfRecipesByUstensils[activeTag.ustensils[0]]);
-//         ustValideRecipes = listIdOfRecipesByUstensils[activeTag.ustensils[0]];
-//     } else if (activeTag.ustensils.length > 1) {
-//         for (const ust of activeTag.ustensils) {
-//             ustValideRecipes = updateMatchingList(ustValideRecipes, listIdOfRecipesByUstensils[ust])
-//         }
-//     }
-// }
-
-export function newUpdateAvailableRecipesByUst(){
+export function updateAvailableRecipesByUst(){
     if (activeTag.ustensils.length === 0) {
         tableHash.ust = [];
         return;
@@ -446,21 +394,6 @@ export function newUpdateAvailableRecipesByUst(){
     }
 }
 
-
-/**
- * Filtrage des id des appareils
- *
- * @return  {Array}  newList de la fonction updateMatchingList
- */
-export function updateAvailableRecipesByApp() {
-    //Appareils
-    if (activeTag.appliance.length === 0) return;
-    if (activeTag.appliance.length === 1) {
-        appValideRecipes = listIdOfRecipesByAppliance[activeTag.appliance[0]];
-        return;
-    }
-}
-
 /**
  * Filtrage des id des ingredients
  *
@@ -470,11 +403,36 @@ export function updateAvailableRecipesByIng() {
     //Ingredients
     if (activeTag.ingredients.length === 0) return;
     if (activeTag.ingredients.length === 1) {
-        ingValideRecipes = listIdOfRecipesByIngredient[activeTag.ingredients[0]];
-        return ingValideRecipes;
+        tableHash.ing = [];
+        let word;
+        let ingredientName;
+        for (let i = 0, size = recipes.length; i < size; i++) {
+            recipes[i].ingredients.forEach(ingredient => {
+                ingredientName = ingredient.ingredient.toLowerCase();
+                for( let ii=3, size=ingredientName.length; ii<size +1; ii++){
+                    word = ingredientName.slice(0,ii);
+                    if (tableHash.ing[word] === undefined) tableHash.ing[word] = [];
+                    tableHash.ing[word].push(i)
+                }
+            });
+        };
+        ingValideRecipes = tableHash.ing[activeTag.ingredients[0]]
     } else if (activeTag.ingredients.length > 1) {
+        tableHash.ing = [];
+        let word;
+        let ingredientName;
+        for (let i = 0, size = recipes.length; i < size; i++) {
+            recipes[i].ingredients.forEach(ingredient => {
+                ingredientName = ingredient.ingredient.toLowerCase();
+                for( let ii=3, size=ingredientName.length; ii<size +1; ii++){
+                    word = ingredientName.slice(0,ii);
+                    if (tableHash.ing[word] === undefined) tableHash.ing[word] = [];
+                    tableHash.ing[word].push(i)
+                }
+            });
+        };
         for (const ing of activeTag.ingredients) {
-            ingValideRecipes = updateMatchingList(ingValideRecipes, listIdOfRecipesByIngredient[ing])
+            ingValideRecipes = updateMatchingList(ingValideRecipes, tableHash.ing[ing])
         }
     }
 }
