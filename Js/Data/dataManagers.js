@@ -7,6 +7,12 @@ let getValideIng;
 let getValideText;
 let getValideTitle;
 
+let tableHash = {
+    'ust' : [],
+    'app' : [], 
+    'ing' : []
+};
+
 /**
  * Création d'un tableau d'objet contenant des clés valeur 
  * de chaque recette par les id générés 
@@ -176,9 +182,15 @@ export let activeTag = {
  * @return  {Object}  Recette filtrées
  */
 export function getRecipes() {
-    updateAvailableRecipesByUst();
+    // updateAvailableRecipesByUst();
+    newUpdateAvailableRecipesByUst();
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
+    if(activeTag.ustensils.length === 0){
+        ustValideRecipes = [];
+    }
+
+    console.log(ustValideRecipes);
 
     if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0 && searchValue.length === 0) return recipes;
 
@@ -382,16 +394,58 @@ export function makeActiveTag(type, value) {
  *
  * @return  {Array}  newList de la fonction updateMatchingList
  */
-export function updateAvailableRecipesByUst() {
-    if (activeTag.ustensils.length === 0) return;
-    if (activeTag.ustensils.length === 1) {
-        ustValideRecipes = listIdOfRecipesByUstensils[activeTag.ustensils[0]]
-    } else if (activeTag.ustensils.length > 1) {
+// export function updateAvailableRecipesByUst() {
+//     if (activeTag.ustensils.length === 0) return;
+//     if (activeTag.ustensils.length === 1) {
+//         console.log(listIdOfRecipesByUstensils[activeTag.ustensils[0]]);
+//         ustValideRecipes = listIdOfRecipesByUstensils[activeTag.ustensils[0]];
+//     } else if (activeTag.ustensils.length > 1) {
+//         for (const ust of activeTag.ustensils) {
+//             ustValideRecipes = updateMatchingList(ustValideRecipes, listIdOfRecipesByUstensils[ust])
+//         }
+//     }
+// }
+
+export function newUpdateAvailableRecipesByUst(){
+    if (activeTag.ustensils.length === 0) {
+        tableHash.ust = [];
+        return;
+    }
+    if(activeTag.ustensils.length === 1){
+        tableHash.ust = [];
+        let word;
+        let ustensilName;
+        for (let i = 0, size = recipes.length; i < size; i++){
+            recipes[i].ustensils.forEach(ust => {
+                ustensilName = ust.toLowerCase();
+                for( let ii=3, size=ustensilName.length; ii<size +1; ii++){
+                    word = ustensilName.slice(0,ii);
+                    if (tableHash.ust[word] === undefined) tableHash.ust[word] = [];
+                    tableHash.ust[word].push(i)
+                }
+            })
+        }
+        ustValideRecipes = tableHash.ust[activeTag.ustensils[0]]
+    } else if (activeTag.ustensils.length > 1){
+        tableHash.ust = [];
+        let word;
+        let ustensilName;
+        for (let i = 0, size = recipes.length; i < size; i++){
+            recipes[i].ustensils.forEach(ust => {
+                ustensilName = ust.toLowerCase();
+                for( let ii=3, size=ustensilName.length; ii<size +1; ii++){
+                    word = ustensilName.slice(0,ii);
+                    if (tableHash.ust[word] === undefined) tableHash.ust[word] = [];
+                    tableHash.ust[word].push(i)
+                }
+            })
+        }
         for (const ust of activeTag.ustensils) {
-            ustValideRecipes = updateMatchingList(ustValideRecipes, listIdOfRecipesByUstensils[ust])
+            ustValideRecipes = updateMatchingList(ustValideRecipes, tableHash.ust[ust])
         }
     }
 }
+
 
 /**
  * Filtrage des id des appareils
@@ -451,7 +505,6 @@ function updateMatchingList(refList, filterList) {
  * @return  {void}         [return description]
  */
 export function updateActiveTag(type, value) { //BUG Supprime le resultat mais n'actualise pas les vignettes
-    console.log(type);
     const index = activeTag[type].indexOf(value);
     if (index !== -1) {
         activeTag[type].splice(index, 1);
