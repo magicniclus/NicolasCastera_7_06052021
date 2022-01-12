@@ -51,7 +51,7 @@ let searchValue = [];
  */
 let newRecipes = [];
 
-// initIdTitle();
+initIdText();
 
 /**
 * Retourne une clé valeur pour l'ensemble des id des titre 
