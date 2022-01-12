@@ -59,8 +59,7 @@ let newRecipes = [];
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdTitle() {
-    tableHash.title = []
-    console.log(tableHash.title);
+    tableHash.title = [];
     let word;
     let listIdOfRecipesByTitle;
     for (let i = 0, size = recipes.length; i < size; i++){
@@ -71,7 +70,6 @@ export function initIdTitle() {
             tableHash.title[word].push(i)
         }
     }
-    console.log(tableHash.title);
     return tableHash.title;
 }
 
@@ -81,13 +79,12 @@ export function initIdTitle() {
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdText() {
-    tableHash.text = []
-    console.log(tableHash.text);
+    tableHash.text = [];
     let word;
-    let descriptionText;
+    let descriptionName;
     for (let i = 0, size = recipes.length; i < size; i++){
-        descriptionText = recipes[i].description.toLowerCase();
-        let newValue = descriptionText.split(" ");
+        descriptionName = recipes[i].description.toLowerCase();
+        let newValue = descriptionName.split(" ");
         for(let ii = 0, size=newValue.length; ii < size -1; ii++){
             for(let iii =3, size = newValue[ii].length; iii < size +1; iii++){
                 word = newValue[ii].slice(0, iii);
@@ -95,10 +92,9 @@ export function initIdText() {
                 tableHash.text[word].push(i)
             }
         }
-
     }
-    console.log(tableHash.text);
-    return tableHash.text;
+    console.log('text : '+ tableHash.text);
+    return tableHash.text
 }
 
 /**
