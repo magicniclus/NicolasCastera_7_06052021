@@ -81,21 +81,24 @@ export function initIdTitle() {
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdText() {
+    tableHash.text = []
+    console.log(tableHash.text);
     let word;
-    let descriptionName;
+    let descriptionText;
     for (let i = 0, size = recipes.length; i < size; i++){
-        descriptionName = recipes[i].description.toLowerCase();
-        let newValue = descriptionName.split(" ");
+        descriptionText = recipes[i].description.toLowerCase();
+        let newValue = descriptionText.split(" ");
         for(let ii = 0, size=newValue.length; ii < size -1; ii++){
             for(let iii =3, size = newValue[ii].length; iii < size +1; iii++){
                 word = newValue[ii].slice(0, iii);
-                if (listIdOfRecipesByText[word] === undefined) listIdOfRecipesByText[word] = [];
-                listIdOfRecipesByText[word].push(i)
+                if (tableHash.text[word] === undefined) tableHash.text[word] = [];
+                tableHash.text[word].push(i)
             }
         }
 
     }
-    return listIdOfRecipesByText;
+    console.log(tableHash.text);
+    return tableHash.text;
 }
 
 /**
@@ -195,7 +198,7 @@ export function getRecipes() {
         let getValideUst = isInList(listIdOfRecipesByUstensils, value);
         let getValideApp = isInList(listIdOfRecipesByAppliance, value);
         let getValideIng = isInList(listIdOfRecipesByIngredient, value);
-        let getValideText = isInList(listIdOfRecipesByText, value);
+        let getValideText = isInList(initIdText(), value);
         let getValideTitle = isInList(initIdTitle(), value);
         searchValue= [...new Set(searchValue)];
     
