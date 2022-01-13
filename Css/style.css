@@ -56,6 +56,7 @@ body main .tagBar .ust {
 body main .filterContainer {
   margin-top: 1em;
   width: 90%;
+  height: 5em;
   display: flex;
   justify-content: start;
 }
@@ -109,6 +110,8 @@ body main .filterContainer .click {
   width: 667px;
   height: 100%;
   max-height: 397px;
+  position: relative;
+  height: fit-content;
 }
 body main .filterContainer .click .filtreBoutton__filterTop {
   justify-content: space-between;
