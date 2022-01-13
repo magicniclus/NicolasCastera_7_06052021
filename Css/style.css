@@ -57,6 +57,7 @@ body main .filterContainer {
   margin-top: 1em;
   width: 90%;
   display: flex;
+  height: 5em;
 }
 @media screen and (max-width: 637px) {
   body main .filterContainer {
@@ -108,6 +109,8 @@ body main .filterContainer .click {
   width: 667px;
   height: 100%;
   max-height: 397px;
+  position: relative;
+  height: fit-content;
 }
 body main .filterContainer .click .filtreBoutton__filterTop {
   justify-content: space-between;
