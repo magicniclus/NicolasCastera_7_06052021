@@ -346,28 +346,22 @@ export function makeActiveTag(type, value) {
     const indexApp = activeTag.appliance.indexOf(value);
     const indexIng = activeTag.ingredients.indexOf(value);
 
-    switch (type) {
-        case "ingredients": 
-            if (indexIng === -1) {
-                activeTag.ingredients.push(value.toLowerCase())
-            }
-            break;
-    
-        case "appareil":
-            if (indexApp === -1) {
-                activeTag.appliance.push(value.toLowerCase())
-            }
-            break;
-         
-        case "ustensils":
-            if (indexUst === -1) {
-                activeTag.ustensils.push(value.toLowerCase())
-            }
-            break;
+    if (type === "ustensils") {
+        if (indexUst === -1) {
+            activeTag.ustensils.push(value.toLowerCase())
+        }
+    }
 
-        default:
-            alert ("Probleme d'affichage")
-            break;
+    if (type === "appareil") {
+        if (indexIng === -1) {
+            activeTag.appliance.push(value.toLowerCase())
+        }
+    }
+
+    if (type === "ingredients") {
+        if (indexIng === -1) {
+            activeTag.ingredients.push(value.toLowerCase())
+        }
     }
 }
 
