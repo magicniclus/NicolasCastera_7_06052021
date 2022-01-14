@@ -7,7 +7,12 @@ const times = {
     algo2 : 0
 }
 
+const body = document.querySelector('body');
+const main = document.createElement('main');
+body.appendChild(main);
+
 function startBenchmark(loop) {  
+    //Algo Un
     startFunction();
     makeActiveTagAlgo1("ingredients","beurre salé");
     getRecipesAlgo1();
@@ -93,7 +98,7 @@ function startBenchmark(loop) {
     getRecipesAlgo1();
     makeActiveTagAlgo1("ustensils", "cuillière en bois");
     getRecipesAlgo1();
-    //ajouter d'autres élements
+    //Algo 2
     endFunction(1)
     startFunction();
     makeActiveTagAlgo2("ingredients","beurre salé");
@@ -187,7 +192,14 @@ function startBenchmark(loop) {
         startFunction();
         endFunction(2);
     }
-    console.log("algo1", times.algo1+"ms", "algo2", times.algo2+"ms");
+
+    main.innerHTML = `
+        <h1>Comparatif algorithme Un et  algorithme Deux</h1>
+        <div class='content'>
+            <div class='alogUn'>algorithme un : ${times.algo1+"ms"}</div>
+            <div class='alogDeux'>Alorithme deux : ${times.algo2+" ms"}</div>
+        </div>
+    `
 }
 
 function startFunction(){
