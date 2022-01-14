@@ -1,14 +1,8 @@
 import { recipes } from "./data.js";
 
-export let getValideEntrie;
 
-let tableHash = {
-    'ust' : [],
-    'app' : [], 
-    'ing' : [], 
-    'text' : [],
-    'title' : []
-};
+
+export let getValideEntrie;
 
 /**
  * Création d'un tableau d'objet contenant des clés valeur 
@@ -51,7 +45,69 @@ let searchValue = [];
  */
 let newRecipes = [];
 
+initIdUstensils();
+initIdAppliance();
+initIdIngredient();
+initIdTitle();
 initIdText();
+
+/**
+ * Retourne une clé valeur pour l'ensemble des id des ustensils 
+ *
+ * @return  {Object}  Renvoi un objet 
+ */
+export function initIdUstensils() {
+    let word;
+    let ustensilName;
+    for (let i = 0, size = recipes.length; i < size; i++){
+        recipes[i].ustensils.forEach(ust => {
+            ustensilName = ust.toLowerCase();
+            for( let ii=3, size=ustensilName.length; ii<size +1; ii++){
+                word = ustensilName.slice(0,ii);
+                if (listIdOfRecipesByUstensils[word] === undefined) listIdOfRecipesByUstensils[word] = [];
+                listIdOfRecipesByUstensils[word].push(i)
+            }
+        })
+    }
+}
+
+/**
+ * Retourne une clé valeur pour l'ensemble des id des appareils 
+ *
+ * @return  {Object}  Renvoi un objet 
+ */
+export function initIdAppliance() {
+    let word;
+    let applianceName;
+    for (let i = 0, size = recipes.length; i < size; i++){
+        applianceName = recipes[i].appliance.toLowerCase();
+        for( let ii=3, size=applianceName.length; ii<size +1; ii++){
+            word = applianceName.slice(0,ii);
+            if (listIdOfRecipesByAppliance[word] === undefined) listIdOfRecipesByAppliance[word] = [];
+            listIdOfRecipesByAppliance[word].push(i)
+        }
+    }
+}
+
+/**
+* Retourne une clé valeur pour l'ensemble des id des ingredient 
+*
+* @return  {Object}  Renvoi un objet 
+*/
+export function initIdIngredient() {
+    let word;
+    let ingredientName;
+    for (let i = 0, size = recipes.length; i < size; i++) {
+        recipes[i].ingredients.forEach(ingredient => {
+            ingredientName = ingredient.ingredient.toLowerCase();
+            for( let ii=3, size=ingredientName.length; ii<size +1; ii++){
+                word = ingredientName.slice(0,ii);
+                if (listIdOfRecipesByIngredient[word] === undefined) listIdOfRecipesByIngredient[word] = [];
+                listIdOfRecipesByIngredient[word].push(i)
+            }
+        });
+    };
+}
 
 /**
 * Retourne une clé valeur pour l'ensemble des id des titre 
@@ -59,18 +115,17 @@ initIdText();
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdTitle() {
-    tableHash.title = [];
+    const list = {}
     let word;
     let listIdOfRecipesByTitle;
     for (let i = 0, size = recipes.length; i < size; i++){
         listIdOfRecipesByTitle = recipes[i].name.toLowerCase();
         for( let ii=3, size=listIdOfRecipesByTitle.length; ii<size +1; ii++){
             word = listIdOfRecipesByTitle.slice(0,ii);
-            if (tableHash.title[word] === undefined) tableHash.title[word] = [];
-            tableHash.title[word].push(i)
+            if (list[word] === undefined) list[word] = [];
+            list[word].push(i)
         }
     }
-    return tableHash.title;
 }
 
 /**
@@ -117,52 +172,40 @@ export function getRecipes() {
     updateAvailableRecipesByUst();
     updateAvailableRecipesByApp();
     updateAvailableRecipesByIng();
-    if(activeTag.ustensils.length === 0){
-        ustValideRecipes = [];
-    }
-    if(activeTag.appliance.length === 0){
-        appValideRecipes =[];
-    }
 
     if (ingValideRecipes.length === 0 && appValideRecipes.length === 0 && ustValideRecipes.length === 0 && searchValue.length === 0) return recipes;
 
     globalValideRecipes = [];
 
-    //Ajout des recettes ingredients
+    //Ajout des recettes ingredients 
     if (globalValideRecipes.length === 0 && globalValideRecipes.length === 0) globalValideRecipes = ingValideRecipes;
     if (globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (ingValideRecipes.includes(id)) {
-                return id;
-            }
+            if (ingValideRecipes.includes(id)) return id;
         })
     };
     //Ajout des recettes appareils
     if (appValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = appValideRecipes;
     if (appValideRecipes.length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (appValideRecipes.includes(id)) {
-                return id;
-            }
+            if (appValideRecipes.includes(id)) return id;
         })
     }
     //Ajout des recettes ustensils
     if (ustValideRecipes.length > 0 && globalValideRecipes.length === 0) globalValideRecipes = ustValideRecipes;
     if (ustValideRecipes.length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (ustValideRecipes.includes(id)) {
-                return id;
-            }
+            if (ustValideRecipes.includes(id)) return id;
         })
     }
 
     //Ajout des recettes par l'ensemble des filtres possible à la saisir 
-    if ([...searchValue].length > 0 && globalValideRecipes.length === 0) globalValideRecipes = searchValue;
+    if ([...searchValue].length > 0 && globalValideRecipes.length === 0) {
+        globalValideRecipes = searchValue;
+    }
     if ([...searchValue].length > 0 && globalValideRecipes.length > 0) {
         globalValideRecipes = globalValideRecipes.filter(id => {
-            if (searchValue.includes(id)) {
-                return id;
-            }
+            if (searchValue.includes(id)) return id;
         })
     }
 
@@ -182,7 +225,7 @@ export function getRecipes() {
  *
  * @return  {Array}         change le contenu du tableau searchValue 
  */
- export function getRecipesByTagBar(value) {
+export function getRecipesByTagBar(value) {
     value = value.toLowerCase();
     if (value.length < 3) {
         getValideEntrie = true;
@@ -193,7 +236,7 @@ export function getRecipes() {
         let getValideApp = isInList(listIdOfRecipesByAppliance, value);
         let getValideIng = isInList(listIdOfRecipesByIngredient, value);
         let getValideText = isInList(listIdOfRecipesByText, value);
-        let getValideTitle = isInList(initIdTitle(), value);
+        let getValideTitle = isInList(listIdOfRecipesByTitle, value);
         searchValue= [...new Set(searchValue)];
     
         if(!getValideUst && !getValideApp && !getValideIng && !getValideText && !getValideTitle){
@@ -204,7 +247,7 @@ export function getRecipes() {
 
 //************ Amelioration
 function isInList(listRef, element){
-    let bool = false;
+    let bool = false
     element = element.toLowerCase();
     Object.keys(listRef).forEach(ref => {
         if(ref.includes(element.toLowerCase())){
@@ -218,7 +261,7 @@ function isInList(listRef, element){
     return bool;
 }
 
-//********Changement des forEach en for of
+/*********Amelioration
 /**
  * Création de la list des ustensils qui correspond à l'ensemble des ustensils de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les ustensils de newRecipes
@@ -228,22 +271,22 @@ function isInList(listRef, element){
 export function updateUstensilsList() {
     ustensilList = new Set();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
-        for(const rec of recipes){
-            for(const ust of rec.ustensils){
+        recipes.forEach(rec => {
+            rec.ustensils.forEach(ust => {
                 ustensilList.add(ust.toLowerCase());
-            }
-        }
+            })
+        })
     } else {
-        for(const rec of newRecipes){
-            for(const ust of rec.ustensils){
+        newRecipes.forEach(rec => {
+            rec.ustensils.forEach(ust => {
                 ustensilList.add(ust.toLowerCase());
-            }
-        }
+            })
+        })
     }
     return [...ustensilList];
 }
 
-//********Changement des forEach en for of
+/*********Amelioration
 /**
  * Création de la list des appareils qui correspond à l'ensemble des appareils de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les appareils de newRecipes
@@ -253,18 +296,18 @@ export function updateUstensilsList() {
 export function updateApplianceList() {
     applianceList = new Set();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
-        for(const rec of recipes){
-            applianceList.add(rec.appliance);
-        }
+        recipes.forEach(rec => {
+            applianceList.add(rec.appliance.toLowerCase());
+        })
     } else {
-        for(const rec of newRecipes){
-            applianceList.add(rec.appliance);
-        }
+        newRecipes.forEach(rec => {
+            applianceList.add(rec.appliance.toLowerCase());
+        })
     }
     return [...applianceList];
 }
 
-//********Changement des forEach en for of
+/*********Amelioration
 /**
  * Création de la list des ingredients qui correspond à l'ensemble des ingredients de l'ensemble des 
  * recettes si activeTag === 0 sinon reprends les ingrédients de newRecipes
@@ -274,21 +317,22 @@ export function updateApplianceList() {
 export function updateIngredientList() {
     ingredientList = new Set();
     if (activeTag.ustensils.length === 0 && activeTag.appliance.length === 0 && activeTag.ingredients.length === 0) {
-        for(const rec of recipes){
-            for(const ing of rec.ingredients){
+        recipes.forEach(rec => {
+            rec.ingredients.forEach(ing => {
                 ingredientList.add(ing.ingredient.toLowerCase())
-            }
-        }
+            })
+        })
     } else {
-        for(const rec of newRecipes){
-            for(const ing of rec.ingredients){
+        newRecipes.forEach(rec => {
+            rec.ingredients.forEach(ing => {
                 ingredientList.add(ing.ingredient.toLowerCase())
-            }
-        }
+            })
+        })
     }
     return [...ingredientList];
 }
 
+/*********Changement du if en switch
 /**
  * Ajout des tag dans activeTag au click dans une valeur d'un des boutons en fonction de leurs type
  *
@@ -302,21 +346,43 @@ export function makeActiveTag(type, value) {
     const indexApp = activeTag.appliance.indexOf(value);
     const indexIng = activeTag.ingredients.indexOf(value);
 
-    if (type === "ustensils") {
-        if (indexUst === -1) {
-            activeTag.ustensils.push(value.toLowerCase())
-        }
-    }
+    switch (type) {
+        case "ingredients": 
+            if (indexIng === -1) {
+                activeTag.ingredients.push(value.toLowerCase())
+            }
+            break;
+    
+        case "appareil":
+            if (indexApp === -1) {
+                activeTag.appliance.push(value.toLowerCase())
+            }
+            break;
+         
+        case "ustensils":
+            if (indexUst === -1) {
+                activeTag.ustensils.push(value.toLowerCase())
+            }
+            break;
 
-    if (type === "appareil") {
-        if (indexIng === -1) {
-            activeTag.appliance.push(value.toLowerCase())
-        }
+        default:
+            alert ("Probleme d'affichage")
+            break;
     }
+}
 
-    if (type === "ingredients") {
-        if (indexIng === -1) {
-            activeTag.ingredients.push(value.toLowerCase())
+/**
+ * Filtrage des id des ustensils
+ *
+ * @return  {Array}  newList de la fonction updateMatchingList
+ */
+export function updateAvailableRecipesByUst() {
+    if (activeTag.ustensils.length === 0) return;
+    if (activeTag.ustensils.length === 1) {
+        ustValideRecipes = listIdOfRecipesByUstensils[activeTag.ustensils[0]]
+    } else if (activeTag.ustensils.length > 1) {
+        for (const ust of activeTag.ustensils) {
+            ustValideRecipes = updateMatchingList(ustValideRecipes, listIdOfRecipesByUstensils[ust])
         }
     }
 }
@@ -330,64 +396,8 @@ export function updateAvailableRecipesByApp() {
     //Appareils
     if (activeTag.appliance.length === 0) return;
     if (activeTag.appliance.length === 1) {
-        tableHash.app = [];
-        let word;
-        let applianceName;
-        for (let i = 0, size = recipes.length; i < size; i++){
-            applianceName = recipes[i].appliance.toLowerCase();
-            for( let ii=3, size=applianceName.length; ii<size +1; ii++){
-                word = applianceName.slice(0,ii);
-                if (tableHash.app[word] === undefined) tableHash.app[word] = [];
-                tableHash.app[word].push(i)
-            }
-        }
-        appValideRecipes = tableHash.app[activeTag.appliance[0]]
-    }
-}
-
-
-/**
- * Filtrage des id des ustensils
- *
- * @return  {Array}  newList de la fonction updateMatchingList
- */
-export function updateAvailableRecipesByUst(){
-    if (activeTag.ustensils.length === 0) {
-        tableHash.ust = [];
+        appValideRecipes = listIdOfRecipesByAppliance[activeTag.appliance[0]];
         return;
-    }
-    if(activeTag.ustensils.length === 1){
-        tableHash.ust = [];
-        let word;
-        let ustensilName;
-        for (let i = 0, size = recipes.length; i < size; i++){
-            recipes[i].ustensils.forEach(ust => {
-                ustensilName = ust.toLowerCase();
-                for( let ii=3, size=ustensilName.length; ii<size +1; ii++){
-                    word = ustensilName.slice(0,ii);
-                    if (tableHash.ust[word] === undefined) tableHash.ust[word] = [];
-                    tableHash.ust[word].push(i)
-                }
-            })
-        }
-        ustValideRecipes = tableHash.ust[activeTag.ustensils[0]]
-    } else if (activeTag.ustensils.length > 1){
-        tableHash.ust = [];
-        let word;
-        let ustensilName;
-        for (let i = 0, size = recipes.length; i < size; i++){
-            recipes[i].ustensils.forEach(ust => {
-                ustensilName = ust.toLowerCase();
-                for( let ii=3, size=ustensilName.length; ii<size +1; ii++){
-                    word = ustensilName.slice(0,ii);
-                    if (tableHash.ust[word] === undefined) tableHash.ust[word] = [];
-                    tableHash.ust[word].push(i)
-                }
-            })
-        }
-        for (const ust of activeTag.ustensils) {
-            ustValideRecipes = updateMatchingList(ustValideRecipes, tableHash.ust[ust])
-        }
     }
 }
 
@@ -400,40 +410,16 @@ export function updateAvailableRecipesByIng() {
     //Ingredients
     if (activeTag.ingredients.length === 0) return;
     if (activeTag.ingredients.length === 1) {
-        tableHash.ing = [];
-        let word;
-        let ingredientName;
-        for (let i = 0, size = recipes.length; i < size; i++) {
-            recipes[i].ingredients.forEach(ingredient => {
-                ingredientName = ingredient.ingredient.toLowerCase();
-                for( let ii=3, size=ingredientName.length; ii<size +1; ii++){
-                    word = ingredientName.slice(0,ii);
-                    if (tableHash.ing[word] === undefined) tableHash.ing[word] = [];
-                    tableHash.ing[word].push(i)
-                }
-            });
-        };
-        ingValideRecipes = tableHash.ing[activeTag.ingredients[0]]
+        ingValideRecipes = listIdOfRecipesByIngredient[activeTag.ingredients[0]];
+        return ingValideRecipes;
     } else if (activeTag.ingredients.length > 1) {
-        tableHash.ing = [];
-        let word;
-        let ingredientName;
-        for (let i = 0, size = recipes.length; i < size; i++) {
-            recipes[i].ingredients.forEach(ingredient => {
-                ingredientName = ingredient.ingredient.toLowerCase();
-                for( let ii=3, size=ingredientName.length; ii<size +1; ii++){
-                    word = ingredientName.slice(0,ii);
-                    if (tableHash.ing[word] === undefined) tableHash.ing[word] = [];
-                    tableHash.ing[word].push(i)
-                }
-            });
-        };
         for (const ing of activeTag.ingredients) {
-            ingValideRecipes = updateMatchingList(ingValideRecipes, tableHash.ing[ing])
+            ingValideRecipes = updateMatchingList(ingValideRecipes, listIdOfRecipesByIngredient[ing])
         }
     }
 }
 
+//**********Amelioration
 /**
  * Filtre un tableau par rapport aux éléments d'un autre tableau 
  *
@@ -444,13 +430,13 @@ export function updateAvailableRecipesByIng() {
  */
 function updateMatchingList(refList, filterList) {
     const newList = [];
-    for (const id of refList) {
+    refList.forEach(id => {
         if (filterList.indexOf(id) !== -1) newList.push(id)
-    }
+    })
     return newList;
 }
 
-//*********Passage du switch a des condition if else 
+/*********Amelioration du if en switch
 /**
  * Supression des l'élément dans activeTag
  *
@@ -464,7 +450,18 @@ export function updateActiveTag(type, value) { //BUG Supprime le resultat mais n
     if (index !== -1) {
         activeTag[type].splice(index, 1);
     }
-    if(type = 'ingredients') ingValideRecipes = [];
-    else if(type = 'appliance') appValideRecipes= [];
-    else ustValideRecipes = [];
+    switch(type){
+        case "ingredients" : ingValideRecipes = []; 
+        break;
+
+        case "appliance" : appValideRecipes = [];
+        break;
+
+        case "ustensils" : ustValideRecipes = [];
+        break;
+
+        default: 
+            console.log('err');
+        break;    
+    }
 }
