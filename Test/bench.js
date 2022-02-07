@@ -189,16 +189,14 @@ function startBenchmark(loop) {
         startFunction();
         endFunction(2);
     }
-<<<<<<< HEAD
 
-    main.innerHTML = `
+    document.querySelector('main').innerHTML = `
         <h1>Comparatif algorithme Un et  algorithme Deux</h1>
         <div class='content'>
             <div class='alogUn'>algorithme un : ${times.algo1+"ms"}</div>
             <div class='alogDeux'>Alorithme deux : ${times.algo2+" ms"}</div>
         </div>
     `
-<<<<<<< HEAD
 
     let algoUn = document.querySelector('.alogUn');
     let algoDeux = document.querySelector('.alogDeux');
@@ -214,11 +212,7 @@ function startBenchmark(loop) {
         algoUn.classList.add('blue');
     }
     document.getElementById("gap").innerText=`X${Math.round(times.algo2/times.algo1)}`
-=======
     console.log("algo1", times.algo1+"ms", "algo2", times.algo2+"ms");
->>>>>>> parent of 1f1d65f... Mise en forme du bench
-=======
->>>>>>> parent of c4c4627... modification
 }
 
 function startFunction(){
