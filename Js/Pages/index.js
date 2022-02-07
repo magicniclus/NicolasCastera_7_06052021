@@ -96,6 +96,5 @@ async function updateRecipes (type, value) {
     await updateMain();
     await updateTagBar();
     await addBtnFilter();
-    await updateSearchBar();
 }
           

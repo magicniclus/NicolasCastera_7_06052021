@@ -48,7 +48,7 @@ let newRecipes = [];
 initIdUstensils();
 initIdAppliance();
 initIdIngredient();
-// initIdTitle();
+initIdTitle();
 initIdText();
 
 /**
@@ -115,17 +115,17 @@ export function initIdIngredient() {
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdTitle() {
+    const list = {}
     let word;
-    let name;
+    let listIdOfRecipesByTitle;
     for (let i = 0, size = recipes.length; i < size; i++){
-        name = recipes[i].name.toLowerCase();
-        for( let ii=3, size=name.length; ii<size +1; ii++){
-            word = name.slice(0,ii);
-            if (listIdOfRecipesByTitle[word] === undefined) listIdOfRecipesByTitle[word] = [];
-            listIdOfRecipesByTitle[word].push(i)
+        listIdOfRecipesByTitle = recipes[i].name.toLowerCase();
+        for( let ii=3, size=listIdOfRecipesByTitle.length; ii<size +1; ii++){
+            word = listIdOfRecipesByTitle.slice(0,ii);
+            if (list[word] === undefined) list[word] = [];
+            list[word].push(i)
         }
     }
-    // console.log(listIdOfRecipesByTitle);
 }
 
 /**
@@ -353,7 +353,7 @@ export function makeActiveTag(type, value) {
     }
 
     if (type === "appareil") {
-        if (indexApp === -1) {
+        if (indexIng === -1) {
             activeTag.appliance.push(value.toLowerCase())
         }
     }
