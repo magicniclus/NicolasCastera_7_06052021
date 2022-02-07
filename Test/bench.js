@@ -7,12 +7,7 @@ const times = {
     algo2 : 0
 }
 
-const body = document.querySelector('body');
-const main = document.createElement('main');
-body.appendChild(main);
-
 function startBenchmark(loop) {  
-    //Algo Un
     startFunction();
     makeActiveTagAlgo1("ingredients","beurre salé");
     makeActiveTagAlgo1("ingredients", "farine");
@@ -56,7 +51,12 @@ function startBenchmark(loop) {
     makeActiveTagAlgo1("ustensils", "louche");
     makeActiveTagAlgo1("ustensils", "bol");
     makeActiveTagAlgo1("ustensils", "cuillière en bois");
+<<<<<<< HEAD
     //Algo 2
+=======
+    getRecipesAlgo1();
+    //ajouter d'autres élements
+>>>>>>> parent of 1f1d65f... Mise en forme du bench
     endFunction(1)
     startFunction();
     makeActiveTagAlgo2("ingredients","beurre salé");
@@ -110,6 +110,7 @@ function startBenchmark(loop) {
         getRecipesAlgo2();
         endFunction(2);
     }
+<<<<<<< HEAD
 
     main.innerHTML = `
         <h1>Comparatif algorithme Un et  algorithme Deux</h1>
@@ -134,6 +135,9 @@ function startBenchmark(loop) {
         algoUn.classList.add('blue');
     }
     document.getElementById("gap").innerText=`X${Math.round(times.algo2/times.algo1)}`
+=======
+    console.log("algo1", times.algo1+"ms", "algo2", times.algo2+"ms");
+>>>>>>> parent of 1f1d65f... Mise en forme du bench
 }
 
 function startFunction(){
