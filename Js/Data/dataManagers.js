@@ -114,16 +114,16 @@ export function initIdIngredient() {
 *
 * @return  {Object}  Renvoi un objet 
 */
+
 export function initIdTitle() {
-    const list = {}
     let word;
-    let listIdOfRecipesByTitle;
+    let name;
     for (let i = 0, size = recipes.length; i < size; i++){
-        listIdOfRecipesByTitle = recipes[i].name.toLowerCase();
-        for( let ii=3, size=listIdOfRecipesByTitle.length; ii<size +1; ii++){
-            word = listIdOfRecipesByTitle.slice(0,ii);
-            if (list[word] === undefined) list[word] = [];
-            list[word].push(i)
+        name = recipes[i].name.toLowerCase();
+        for( let ii=3, size=name.length; ii<size +1; ii++){
+            word = name.slice(0,ii);
+            if (listIdOfRecipesByTitle[word] === undefined) listIdOfRecipesByTitle[word] = [];
+            listIdOfRecipesByTitle[word].push(i)
         }
     }
 }
@@ -146,7 +146,6 @@ export function initIdText() {
                 listIdOfRecipesByText[word].push(i)
             }
         }
-
     }
 }
 
@@ -247,14 +246,16 @@ export function getRecipesByTagBar(value) {
 
 //************ Amelioration
 function isInList(listRef, element){
+    
+
     let bool = false
     element = element.toLowerCase();
     Object.keys(listRef).forEach(ref => {
-        if(ref.includes(element.toLowerCase())){
-            bool = true;
+        if(ref.toLowerCase() === element.toLowerCase()){
+            bool = true; //BUG Changer ma fonction, car il suffit d'un élément qui corresponde pour que ca retourne tous les éléments 
         }
         
-        if(ref.includes(element.toLowerCase())){
+        if(ref.toLowerCase() === element.toLowerCase()){
             searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
         }
     })
@@ -353,7 +354,7 @@ export function makeActiveTag(type, value) {
     }
 
     if (type === "appareil") {
-        if (indexIng === -1) {
+        if (indexApp === -1) {
             activeTag.appliance.push(value.toLowerCase())
         }
     }
