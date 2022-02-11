@@ -59,18 +59,16 @@ initIdText();
 * @return  {Object}  Renvoi un objet 
 */
 export function initIdTitle() {
-    tableHash.title = [];
     let word;
-    let listIdOfRecipesByTitle;
+    let name;
     for (let i = 0, size = recipes.length; i < size; i++){
-        listIdOfRecipesByTitle = recipes[i].name.toLowerCase();
-        for( let ii=3, size=listIdOfRecipesByTitle.length; ii<size +1; ii++){
-            word = listIdOfRecipesByTitle.slice(0,ii);
-            if (tableHash.title[word] === undefined) tableHash.title[word] = [];
-            tableHash.title[word].push(i)
+        name = recipes[i].name.toLowerCase();
+        for( let ii=3, size=name.length; ii<size +1; ii++){
+            word = name.slice(0,ii);
+            if (listIdOfRecipesByTitle[word] === undefined) listIdOfRecipesByTitle[word] = [];
+            listIdOfRecipesByTitle[word].push(i)
         }
     }
-    return tableHash.title;
 }
 
 /**
