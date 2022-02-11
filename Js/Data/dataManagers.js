@@ -180,7 +180,7 @@ export function getRecipes() {
  *
  * @param   {string}  value  valeur saisi dans la search bar
  *
- * @return  {Array}         change le contenu du tableau searchValue 
+ * @return  {void}         change le contenu du tableau searchValue 
  */
  export function getRecipesByTagBar(value) {
     value = value.toLowerCase();
