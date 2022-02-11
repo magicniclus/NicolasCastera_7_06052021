@@ -52,6 +52,7 @@ let searchValue = [];
 let newRecipes = [];
 
 initIdText();
+initIdTitle();
 
 /**
 * Retourne une clé valeur pour l'ensemble des id des titre 
@@ -69,6 +70,7 @@ export function initIdTitle() {
             listIdOfRecipesByTitle[word].push(i)
         }
     }
+    console.log(name);
 }
 
 /**
