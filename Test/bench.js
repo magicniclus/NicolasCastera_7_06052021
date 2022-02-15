@@ -45,7 +45,7 @@ function startBenchmark(loop) {
     const algoDeux = document.querySelector('.alogDeux');
 
     algoUn.innerHTML= `algorithme un : ${times.algo1+"ms"}`;
-    algoDeux.innerHTML= `algorithme un : ${times.algo2+"ms"}`;
+    algoDeux.innerHTML= `algorithme deux : ${times.algo2+"ms"}`;
 
     if(times.algo1 < times.algo2){
         algoDeux.classList.add('red');
