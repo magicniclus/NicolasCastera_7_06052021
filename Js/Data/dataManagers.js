@@ -70,7 +70,6 @@ export function initIdTitle() {
             listIdOfRecipesByTitle[word].push(i)
         }
     }
-    console.log(name);
 }
 
 /**
@@ -184,9 +183,9 @@ export function getRecipes() {
  */
  export function getRecipesByTagBar(value) {
     value = value.toLowerCase();
+    searchValue = [];
     if (value.length < 3) {
         getValideEntrie = true;
-        searchValue = [];
     }
     else { 
         let getValideUst = isInList(listIdOfRecipesByUstensils, value);
