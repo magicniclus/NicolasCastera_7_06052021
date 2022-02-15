@@ -225,10 +225,10 @@ export function getRecipes() {
  * @return  {void}         change le contenu du tableau searchValue 
  */
 export function getRecipesByTagBar(value) {
+    searchValue = [];
     value = value.toLowerCase();
     if (value.length < 3) {
         getValideEntrie = true;
-        searchValue = [];
     }
     else { 
         let getValideUst = isInList(listIdOfRecipesByUstensils, value);
@@ -246,19 +246,15 @@ export function getRecipesByTagBar(value) {
 
 //************ Amelioration
 function isInList(listRef, element){
-    
-
     let bool = false
     element = element.toLowerCase();
     Object.keys(listRef).forEach(ref => {
         if(ref.toLowerCase() === element.toLowerCase()){
-            bool = true; //BUG Changer ma fonction, car il suffit d'un élément qui corresponde pour que ca retourne tous les éléments 
-        }
-        
-        if(ref.toLowerCase() === element.toLowerCase()){
+            bool = true; //BUG Changer ma fonction, car il suffit d'un élément qui corresponde pour que ca retourne tous les éléments
             searchValue = searchValue.concat(listRef[ref.toLowerCase()]);
         }
     })
+    //console.log(listRef, element);
     return bool;
 }
 
